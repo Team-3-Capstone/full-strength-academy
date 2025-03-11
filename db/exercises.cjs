@@ -1,16 +1,18 @@
 const client = require('./client.cjs');
 
-const createEcbync (date, resorts_id, customer_id, party_count) => {
+const createExercises = async (name, difficulty, muscle_group, type) => {
   try {
     const { rows } = await client.query(
-      `INSERT INTO reservations (date, resorts_id, customer_id, party_count)
-       VALUES ('${customerName}' ,'${username}', '${encryptedPassword}');
-       RETURNING *`,
-      [date, resorts_id, customer_id, party_count]
+      `INSERT INTO exercises (name, difficulty, muscle_group, type)
+       VALUES ('${name}', '${difficulty}', '${muscle_group}', '${type}')
+       RETURNING *`
     );
-    return rows[0]
+    return rows[0];
   } catch (err) {
     console.log(err);
   }
 };
 
+module.exports = {
+  createExercises
+};
