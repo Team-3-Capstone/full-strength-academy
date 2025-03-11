@@ -1,18 +1,14 @@
 const client = require('./client.cjs');
 
-const createExercises = async (name, difficulty, muscle_group, type) => {
+const createExercise = async (exerciseName, exerciseDifficulty, exerciseMuscle, exerciseType) => {
   try {
-    const { rows } = await client.query(
-      `INSERT INTO exercises (name, difficulty, muscle_group, type)
-       VALUES ('${name}', '${difficulty}', '${muscle_group}', '${type}')
-       RETURNING *`
-    );
-    return rows[0];
+    await client.query(`
+      INSERT INTO exercises (name, difficulty, muscle_group, type)
+      VALUES ('${exerciseName}', '${exerciseDifficulty}', '${exerciseMuscle}', '${exerciseType}');
+    `);
   } catch (err) {
     console.log(err);
   }
 };
 
-module.exports = {
-  createExercises
-};
+module.exports = createExercise;
