@@ -42,8 +42,24 @@ const loginUser = async(userName, password) => {
   }
 }
 
-const verifyToken = () => {
+const verifyToken = async(token) => {
+  try {
+    require('dotenv').config();
+    const verifyUserToken = await jwt.verify(token, process.env.JWT_SECRET);
+    const { rows } = await client.query(`
+      SELECT * FROM users WHERE username='${verifyUserToken.username}'
+      `);
 
+      const verifiedUser = rows[0];
+
+      if (verifiedUser) {
+        return verifiedUser
+      } else {
+        throw new Error('Invalid User')
+      }
+  } catch(error) {
+    console.log(error);
+  }
 }
 
-module.exports = {createProfile}
+module.exports = { createProfile, loginUser, verifyToken }
