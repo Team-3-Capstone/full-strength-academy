@@ -7,9 +7,8 @@ const createProfile = async(userName, password, userFullName, userHeight, userWe
     const encryptedPwd = await bcrypt.hash(password, 10);
 
     const { rows } = await client.query(`
-      INSERT INTO users (username, password, full_name, height, weight, age, gender)
-      VALUES ('${userName}', '${encryptedPwd}', '${userFullName}, ${userHeight}, ${userWeight}, ${userAge}, '${userGender}')
-      RETURNING *;
+      INSERT INTO profiles (username, password, full_name, height_inches, weight_pounds, age, gender)
+      VALUES ('${userName}', '${encryptedPwd}', '${userFullName}', ${userHeight}, ${userWeight}, ${userAge}, '${userGender}');
       `)
       const userProfile = rows[0];
       return userProfile;
@@ -21,7 +20,7 @@ const createProfile = async(userName, password, userFullName, userHeight, userWe
 const loginUser = async(userName, password) => {
   try {
     const { rows } = await client.query(`
-        SELECT * FROM users WHERE username='${userName}'
+        SELECT * FROM profiles WHERE username='${userName}'
       `);
       const loggedInUser = rows[0];
 
@@ -47,7 +46,7 @@ const verifyToken = async(token) => {
     require('dotenv').config();
     const verifyUserToken = await jwt.verify(token, process.env.JWT_SECRET);
     const { rows } = await client.query(`
-      SELECT * FROM users WHERE username='${verifyUserToken.username}'
+      SELECT * FROM profiles WHERE username='${verifyUserToken.username}'
       `);
 
       const verifiedUser = rows[0];
