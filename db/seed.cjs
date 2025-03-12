@@ -1,12 +1,16 @@
 const client = require('./client.cjs');
 const createExercise = require('./exercises.cjs');
 const createMeal = require('./meals.cjs');
+const { createProfile } = require('./profiles.cjs');
+const createLog = require('./logs.cjs');
 
 const dropTables = async() => {
   try {
     await client.query(`
       DROP TABLE IF EXISTS exercises;
       DROP TABLE IF EXISTS meals;
+      DROP TABLE IF EXISTS profiles;
+      DROP TABLE IF EXISTS logs;
     `);
   } catch(err) {
     console.log(`DROPTABLES ERROR MESSAGE: ${err}`);
@@ -31,6 +35,29 @@ const createTables = async() => {
         calories INT NOT NULL,
         username VARCHAR(30) NOT NULL
       );
+
+      CREATE TABLE profiles (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(30) UNIQUE NOT NULL,
+        password VARCHAR(60) NOT NULL,
+        full_name VARCHAR(60) NOT NULL,
+        height_inches INT,
+        weight_pounds INT,
+        age INT,
+        gender VARCHAR(30)
+      );
+
+      CREATE TABLE logs (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(30) NOT NULL REFERENCES profiles(username),
+        exercise_id INT REFERENCES exercises(id),
+        meal_id INT REFERENCES meals(id),
+        sets_completed INT,
+        reps_per_set INT,
+        weight_used INT,
+        duration_minutes INT,
+        date DATE
+      );
     `);
   } catch(err) {
     console.log(`CREATETABLES ERROR MESSAGE: ${err}`);
@@ -54,6 +81,9 @@ const syncAndSeed = async() => {
   await createMeal(`Cheese, Spinach, Ground Beef Omelette`, `Protein`, 470, `LightWeightRonnie`);
   await createMeal(`Spaghetti Squash & Meat Sauce`, `Low Calorie`, 300, `BalancedBody`);
   await createMeal(`Broccoli Salad`, `Low Calorie`, 120, `BalancedBody`);
+  await createProfile(`joecallahan`, `grizzly`, `Joe Callahan`, 70, 260, 34, `male`);
+  await createProfile(`yoganstuff`, `meditate`, `Jim Yoga`, 72, 175, 40, `male`);
+  await createLog(`joecallahan`, 1, 3, 5, 12, 315, 15, `2025-03-11`);
   await client.end();
 }
 
