@@ -1,22 +1,21 @@
 const client = require("./db/client.cjs");
+client.connect();
+
 const express = require("express");
+const app = express();
+app.use(express.json());
+
 const createExercise = require("./db/exercises.cjs");
 const { createMeal, getMealById, getMealByFocusGoal } = require("./db/meals.cjs");
 
-const app = express();
-
-app.use(express.json());
-
 app.get("/", (req, res) => {
   const slqCommand = `<center> <h1> WELCOME <br/> FULL STRENGTH ACADEMY </center> </h1>`;
-
   res.send(slqCommand);
 });
 
 // POST /api/exercises - TO CREATE EXERCISES
 app.post("/api/exercises", async (req, res) => {
-  const { exerciseName, exerciseDifficulty, exerciseMuscle, exerciseType } =
-    req.body;
+  const { exerciseName, exerciseDifficulty, exerciseMuscle, exerciseType } = req.body;
 
   try {
     await createExercise(
@@ -74,12 +73,6 @@ app.post("/api/meals", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, () =>
+app.listen(process.env.PORT, () => {
   console.log(`Server running on port :  http://localhost:${process.env.PORT}`);
-);
-
-const connectToDb = async () => {
-  await client.connect();
-};
-
-connectToDb();
+});
