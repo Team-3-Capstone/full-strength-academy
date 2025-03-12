@@ -15,9 +15,9 @@ const createMeal = async(mealName, mealFocus, mealCalories, postedByUsername) =>
 const getMealById = async (id) => {
   try {
     
-    const slqCommand = 'SELECT * FROM meals WHERE id = $1';
+    const sqlCommand = 'SELECT * FROM meals WHERE id = $1';
 
-    const result = await client.query(slqCommand,[id]);
+    const result = await client.query(sqlCommand,[id]);
 
     return result.rows[0]; 
   } catch (err) {
