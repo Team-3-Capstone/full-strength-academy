@@ -1,12 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [ newUsername, setNewUsername ] = useState('');
   const [ newPassword, setNewPassword ] = useState('');
 
-  const addNewUser = (event) => {
+  const navigate = useNavigate();
+
+  const addNewUser = async(event) => {
     event.preventDefault(); 
 
+    try {
+      const response = await fetch();
+    } catch(err) {
+      console.log(err);
+    }
+
+    navigate('/editprofile');
   }
 
   return (
