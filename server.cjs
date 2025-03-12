@@ -1,11 +1,7 @@
 const client = require("./db/client.cjs");
 const express = require("express");
 const createExercise = require("./db/exercises.cjs");
-const {
-  createMeal,
-  getMealById,
-  getMealByFocusGoal,
-} = require("./db/meals.cjs");
+const { createMeal, getMealById, getMealByFocusGoal } = require("./db/meals.cjs");
 
 const app = express();
 
@@ -79,7 +75,7 @@ app.post("/api/meals", async (req, res) => {
 });
 
 app.listen(process.env.PORT, () =>
-  console.log(`Server running on port :  http://localhost:${process.env.PORT}`)
+  console.log(`Server running on port :  http://localhost:${process.env.PORT}`);
 );
 
 const connectToDb = async () => {

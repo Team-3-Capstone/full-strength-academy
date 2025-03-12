@@ -8,8 +8,7 @@ const createProfile = async(userName, password, userFullName, userHeight, userWe
 
     const { rows } = await client.query(`
       INSERT INTO profiles (username, password, full_name, height_inches, weight_pounds, age, gender)
-      VALUES ('${userName}', '${encryptedPwd}', '${userFullName}', ${userHeight}, ${userWeight}, ${userAge}, '${userGender}')
-      RETURNING *;
+      VALUES ('${userName}', '${encryptedPwd}', '${userFullName}', ${userHeight}, ${userWeight}, ${userAge}, '${userGender}');
       `)
       const userProfile = rows[0];
       return userProfile;
