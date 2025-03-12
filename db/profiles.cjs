@@ -7,7 +7,7 @@ const createProfile = async(userName, password, userFullName, userHeight, userWe
     const encryptedPwd = await bcrypt.hash(password, 10);
 
     const { rows } = await client.query(`
-      INSET INTO users (username, password, full_name, height, weight, age, gender)
+      INSERT INTO users (username, password, full_name, height, weight, age, gender)
       VALUES ('${userName}', '${encryptedPwd}', '${userFullName}, ${userHeight}, ${userWeight}, ${userAge}, '${userGender}')
       RETURNING *;
       `)
