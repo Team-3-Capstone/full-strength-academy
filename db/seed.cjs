@@ -1,16 +1,16 @@
 const client = require('./client.cjs');
 const createExercise = require('./exercises.cjs');
-const createMeal = require('./meals.cjs');
+const { createMeal } = require('./meals.cjs');
 const { createProfile } = require('./profiles.cjs');
 const createLog = require('./logs.cjs');
 
 const dropTables = async() => {
   try {
     await client.query(`
+      DROP TABLE IF EXISTS logs;
       DROP TABLE IF EXISTS exercises;
       DROP TABLE IF EXISTS meals;
       DROP TABLE IF EXISTS profiles;
-      DROP TABLE IF EXISTS logs;
     `);
   } catch(err) {
     console.log(`DROPTABLES ERROR MESSAGE: ${err}`);
