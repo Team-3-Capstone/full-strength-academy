@@ -1,3 +1,278 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and Main Theme */
 body {
-  background-color: rebeccapurple;
+  font-family: 'Arial', sans-serif;
+  background-color: #222;
+  color: #fff;
+  line-height: 1.6;
+}
+h2{
+  padding: 20px;
+  font-size: 3rem;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+}
+
+.navbar .brand {
+  font-size: 1.5rem;
+  color: #ff3e00;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+}
+
+.nav-links li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.nav-links a:hover {
+  color: #ff3e00;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url('./components/img/Home-img-couples.png'); 
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  text-align: center;
+  padding: 0 50px;
+
+}
+
+.hero-content {
+  max-width: 600px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #ddd;
+}
+
+.btn {
+  background-color: #ff3e00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.btn:hover {
+  background-color: #e63900;
+}
+
+.membership-info {
+  display: flex;
+  justify-content: space-around; /* Distributes the membership plans evenly */
+  align-items: flex-start; /* Aligns the content at the top */
+  margin-top: 20px;
+}
+
+.plans {
+  flex: 1; /* Makes each plan take up equal space */
+  max-width: 300px; /* Optional: Control the maximum width of each plan */
+  text-align: center;
+  padding: 20px;
+  
+}
+
+.plans img {
+  max-width: 100%; /* Ensures the image is responsive */
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.plans p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color:#ff3e00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #ff3e00;
+}
+.about-section {
+  padding: 50px;
+  background-color:black;
+  text-align: center;
+}
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color:white;
+}
+
+.about-section ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.about-section li {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.about-section strong {
+  color: #007bff;
+}
+
+.footer , a{
+text-decoration: none;
+list-style: none;
+}
+
+.about-section {
+  padding: 20px;
+  text-align: center;
+}
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.team-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.team-card {
+
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 185px;
+  text-align: center;
+  
+}
+
+.team-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  
+}
+
+.team-card p {
+  font-size: 1em;
+}
+
+
+
+/* Entire scrollbar */
+::-webkit-scrollbar {
+  width: 12px; /* Set the width of the scrollbar */
+}
+
+/* Track (empty area) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 0px; /* Optional: rounded scrollbar track */
+}
+
+/* Scrollbar thumb (the actual scrolling element) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff4500, #ff8c00); /* Orange-red gradient */
+  border-radius: 10px; /* Rounded edges for the scrollbar thumb */
+}
+
+/* Scrollbar thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff6347, #ffa500); /* Brighter orange when hovered */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .hero-content {
+    margin-bottom: 10px;
+  }
+
+  .plan-card {
+    width: 100%;
+    margin: 10px 0;
+    display:inline-block;
+  }
 }
