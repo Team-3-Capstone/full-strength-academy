@@ -8,6 +8,8 @@ app.use(express.json());
 const cors = require('cors');
 app.use(cors());
 
+app.use(express.static('dist'));
+
 const { createProfile, authentication, verifyToken, editProfile } = require('./db/profiles.cjs');
 const createExercise = require('./db/exercises.cjs');
 const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
