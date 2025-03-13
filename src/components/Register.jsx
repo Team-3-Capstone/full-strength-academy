@@ -12,17 +12,29 @@ const Register = () => {
     if (newPassword1 === newPassword2) {
       event.preventDefault(); 
 
-      // try {
-      //   const response = await fetch('https://full-strength-academy.onrender.com/api/auth/register');
-      //   console.log(response);
-      // } catch(err) {
-      //   console.log(err);
-      // }
-
-      navigate('/editprofile');
-      } else {
-        alert('Passwords must match');
+      try {
+        const response = await fetch('https://full-strength-academy.onrender.com/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify({
+            username: newUsername,
+            password: newPassword1
+          })
+        });
+        const newUser = await response.json();
+        setNewUsername('');
+        setNewPassword1('');
+        setNewPassword2('');
+        console.log(newUser);
+      } catch(err) {
+        console.log(err);
       }
+    } else {
+      alert('Passwords must match');
+    }
+    navigate('/editprofile');
   }
 
   return (
