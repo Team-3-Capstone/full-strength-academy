@@ -102,6 +102,19 @@ app.get('/api/exercises', async(req, res) => {
   }
 })
 
+//GET ALL EXERCISES BY DIFFICULTY
+app.get('/api/exercises/difficulty/:difficulty', (req, res) => {
+  const selectedDifficulty = req.params.difficulty;
+  const selectedExercises = await client.query(`
+    SELECT * FROM exercises WHERE difficulty='${selectedDifficulty};
+  `);
+  try {
+    res.send(selectedExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
 //GET ALL EXERCISES BY MUSCLE GROUP
 app.get('/api/exercises/muscle/:muscle', async(req, res) => {
   const selectedMuscle = req.params.muscle;
