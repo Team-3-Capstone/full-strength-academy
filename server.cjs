@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-const { createProfile, authentication, verifyToken } = require('./db/profiles.cjs');
+const { createProfile, authentication, verifyToken, editProfile } = require('./db/profiles.cjs');
 const createExercise = require('./db/exercises.cjs');
 const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
 
@@ -59,6 +59,87 @@ app.get('/api/auth/me', async(req, res) => {
   //^^^^^^WE CAN CONFIGURE THIS TO PASS UP USER INFO AS AN OBJECT AT THE APPROPRIATE TIME.
   } else {
     res.send(`How did you get here!? You must be logged in to access this feature!`);
+  }
+});
+
+//EDIT USER DETAILS. REQUIRES ACCESS TOKEN TO EDIT INFORMATION.
+app.put('/api/auth/me', async(req, res) => {
+  const user = await verifyToken(req.headers.authorization);
+  const { fullName, height, weight, age, gender } = req.body;
+  try {
+    if(user) {
+      await editProfile(user.username, fullName, height, weight, age, gender);
+      res.send(`Profile updated.`);
+    } else {
+      res.send(`You must be logged in to do this.`);
+    }
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
+//GET ALL LOGS (TOTAL HISTORY) CREATED BY USER. REQUIRES ACCESS TOKEN TO VIEW INFORMATION.
+app.get('/api/auth/me/logs', async(req, res) => {
+  const user = await verifyToken(req.headers.authorization);
+  const allUserLogs = await client.query(`SELECT * FROM logs WHERE username='${user.username}';`);
+  try {
+    if(user) {
+      res.send(allUserLogs.rows[0]);
+    } else {
+      res.send(`You must be logged in to do this.`);
+    }
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
+//GET ALL EXERCISES BY MUSCLE GROUP
+app.get('/api/exercises/muscle/:musclegroup', async(req, res) => {
+  const selectedMuscle = req.params.musclegroup;
+  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE muscle_group='${selectedMuscle}';`);
+  try {
+    res.send(selectedExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
+//GET ALL EXERCISES BY TYPE
+app.get('/api/exercises/type/:type', async(req, res) => {
+  const selectedType = req.params.type;
+  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE type='${selectedType}';`);
+  try {
+    res.send(selectedExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
+//GET ALL EXERCISES BY TYPE & MUSCLE GROUP (FOR CUSTOMIZATION)
+app.get('/api/exercises/type/:type/muscle/:muscle', async(req, res) => {
+  const selectedType = req.params.type;
+  const selectedMuscle = req.params.muscle;
+  const selectedExercises = await client.query(`
+    SELECT * FROM exercises WHERE type='${selectedType}' AND muscle_group='${selectedMuscle}';`);
+  try {
+    res.send(selectedExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
+//GET ALL EXERCISES BY TYPE, MUSCLE GROUP, & DIFFICULTY (FOR EVEN MORE CUSTOMIZATION!)
+app.get('/api/exercises/type/:type/muscle/:muscle/difficulty/:difficulty', async(req, res) => {
+  const selectedType = req.params.type;
+  const selectedMuscle = req.params.muscle;
+  const selectedDifficulty = req.params.difficulty;
+  const selectedExercises = await client.query(`
+    SELECT * FROM exercises WHERE type='${selectedType}' 
+      AND muscle_group='${selectedMuscle}' AND difficulty='${selectedDifficulty}';`);
+  try {
+    res.send(selectedExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
   }
 });
 

@@ -46,7 +46,7 @@ const verifyToken = async(token) => {
     if (verifiedUser) {
       return {
         username: verifiedUser.username, fullName: verifiedUser.full_name, height: verifiedUser.height_inches,
-        weight: verifiedUser.weight_pounds, age: verifiedUser.age, gender: verifiedUser.gender
+          weight: verifiedUser.weight_pounds, age: verifiedUser.age, gender: verifiedUser.gender
       }
     } else {
       throw new Error(`VERIFIYTOKEN ERROR`);
@@ -56,4 +56,17 @@ const verifyToken = async(token) => {
   }
 }
 
-module.exports = { createProfile, authentication, verifyToken }
+const editProfile = async(editingUsername, fullName, height, weight, ageUpdate, genderUpdate) => {
+  try {
+    await client.query(`
+      UPDATE profiles 
+        SET full_name='${fullName}', height_inches=${height}, weight_pounds=${weight},
+          age=${ageUpdate}, gender='${genderUpdate}'
+        WHERE username='${editingUsername}';
+    `);
+  } catch(err) {
+    console.log(`EDITPROFILE ERROR MESSAGE: ${err}`);
+  }
+}
+
+module.exports = { createProfile, authentication, verifyToken, editProfile }

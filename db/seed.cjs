@@ -68,12 +68,12 @@ const syncAndSeed = async() => {
   await client.connect();
   await dropTables();
   await createTables();
-  await createExercise(`Barbell Bench Press`, `Medium`, `Chest`, `Strength`);
-  await createExercise(`Dumbbell Bench Press`, `Hard`, `Chest`, `Strength`);
-  await createExercise(`Treadmill`, `Easy`, `Cardio`, `Weight Loss`);
-  await createExercise(`Barbell Back Squat`, `Medium`, `Legs`, `Strength`);
-  await createExercise(`Barbell Front Squat`, `Hard`, `Legs`, `Strength`);
-  await createExercise(`Jumping Jacks`, `Easy`, `Cardio`, `Weight Loss`);
+  await createExercise(`Barbell Bench Press`, `medium`, `chest`, `strength`);
+  await createExercise(`Dumbbell Bench Press`, `hard`, `chest`, `strength`);
+  await createExercise(`Treadmill`, `easy`, `cardio`, `weightloss`);
+  await createExercise(`Barbell Back Squat`, `medium`, `legs`, `strength`);
+  await createExercise(`Barbell Front Squat`, `hard`, `legs`, `strength`);
+  await createExercise(`Jumping Jacks`, `easy`, `cardio`, `weightloss`);
   await createMeal(`Chicken Caesar Wrap`, `Low Calorie`, 400, `ChickenKing`);
   await createMeal(`Protein Pancakes`, `Protein`, 180, `BroteinBromigo`);
   await createMeal(`Hard-Boiled Eggs`, `Protein`, 70, `ChickenKing`);
