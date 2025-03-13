@@ -5,6 +5,7 @@ const Register = () => {
   const [ newUsername, setNewUsername ] = useState('');
   const [ newPassword1, setNewPassword1 ] = useState('');
   const [ newPassword2, setNewPassword2 ] = useState('');
+  const [ newToken, setNewToken ] = useState('');
 
   const navigate = useNavigate();
 
@@ -28,9 +29,15 @@ const Register = () => {
             gender: ''
           })
         });
-        navigate('/editprofile');
         const newUser = await response.json();
         console.log(newUser);
+        if (!newUser) {
+          alert('Invalid Registration');
+        } else {
+          setNewToken(newUser.token);
+          localStorage.setItem('token', newUser.token);
+          navigate('/editprofile')
+        }
       } catch(err) {
         console.log(err);
       }
