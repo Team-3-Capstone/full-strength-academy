@@ -23,8 +23,7 @@ app.post('/api/auth/register', async(req, res) => {
   try {
     await createProfile(username, password, fullName, height, weight, age, gender);
     const token = await authentication(username, password);
-    res.send(`Thank you, ${username}! Account successfully created. Your login token is displayed below: ${token}`);
-    //^^^^^^We can rip this apart and just pass the token up later.^^^^^^^^
+    res.send({ username: `${username}`, token: `${token}` });
   } catch(err) {
     res.send({message: err.message});
   }
@@ -95,6 +94,16 @@ app.get('/api/auth/me/logs', async(req, res) => {
     res.send({message: err.message});
   }
 });
+
+//GET ALL EXERCISES
+app.get('/api/exercises', async(req, res) => {
+  const allExercises = await client.query(`SELECT * FROM exercises;`);
+  try {
+    res.send(allExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+})
 
 //GET ALL EXERCISES BY MUSCLE GROUP
 app.get('/api/exercises/muscle/:musclegroup', async(req, res) => {

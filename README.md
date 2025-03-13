@@ -1,4 +1,4 @@
-# Full Strength Academy|
+# Full Strength Academy
 
 ## Layouts 
 
