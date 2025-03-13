@@ -103,7 +103,7 @@ app.get('/api/exercises', async(req, res) => {
 })
 
 //GET ALL EXERCISES BY DIFFICULTY
-app.get('/api/exercises/difficulty/:difficulty', (req, res) => {
+app.get('/api/exercises/difficulty/:difficulty', async(req, res) => {
   const selectedDifficulty = req.params.difficulty;
   const selectedExercises = await client.query(`
     SELECT * FROM exercises WHERE difficulty='${selectedDifficulty};
@@ -186,6 +186,16 @@ app.post("/api/exercises", async (req, res) => {
     res.status(201).send({ message: "Exercise created successfully!" });
   } catch (err) {
     res.status(500).send({ error: `Error creating exercise: ${err}` });
+  }
+});
+
+//GET ALL MEALS
+app.get('/api/meals', async(req, res) => {
+  const allMeals = await client.query(`SELECT * FROM meals;`);
+  try {
+    res.send(allMeals.rows);
+  } catch(err) {
+    res.send({message: err.message});
   }
 });
 
