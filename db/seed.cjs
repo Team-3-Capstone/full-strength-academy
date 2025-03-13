@@ -75,6 +75,26 @@ const syncAndSeed = async() => {
   await createExercise(`Barbell Back Squat`, `medium`, `{legs, glutes}`, `strength`);
   await createExercise(`Barbell Front Squat`, `hard`, `{legs, glutes}`, `strength`);
   await createExercise(`Jumping Jacks`, `easy`, `{cardio}`, `weightloss`);
+  await createExercise(`Deadlift`, `hard`, `{back, hamstrings, glutes}`, `strength`);
+  await createExercise(`Pull-Ups`, `medium`, `{back, biceps}`, `strength`);
+  await createExercise(`Push-Ups`, `easy`, `{chest, triceps}`, `strength`);
+  await createExercise(`Leg Press`, `medium`, `{legs, glutes}`, `strength`);
+  await createExercise(`Kettlebell Swing`, `hard`, `{legs, glutes, back}`, `strength`);
+  await createExercise(`Cycling`, `medium`, `{cardio}`, `weightloss`);
+  await createExercise(`Jump Rope`, `hard`, `{cardio}`, `weightloss`);
+  await createExercise(`Lunges`, `medium`, `{legs, glutes}`, `strength`);
+  await createExercise(`Plank`, `medium`, `{core}`, `strength`);
+  await createExercise(`Mountain Climbers`, `easy`, `{cardio}`, `weightloss`);
+  await createExercise(`Box Jumps`, `hard`, `{legs, glutes}`, `strength`);
+  await createExercise(`Bicep Curls`, `medium`, `{biceps}`, `strength`);
+  await createExercise(`Tricep Dips`, `medium`, `{triceps}`, `strength`);
+  await createExercise(`Stair Climber`, `easy`, `{cardio}`, `weightloss`);
+  await createExercise(`Seated Row`, `medium`, `{back, biceps}`, `strength`);
+  await createExercise(`Burpees`, `hard`, `{full body}`, `weightloss`);
+  await createExercise(`Russian Twists`, `medium`, `{core}`, `strength`);
+  await createExercise(`Walking Lunges`, `easy`, `{legs, glutes}`, `strength`);
+  await createExercise(`Treadmill Sprint`, `hard`, `{cardio}`, `weightloss`);
+  await createExercise(`Chest Fly`, `medium`, `{chest}`, `strength`);
 
   await createMeal(`Chicken Caesar Wrap`, `Low Calorie`, 400, `ChickenKing`);
   await createMeal(`Protein Pancakes`, `Protein`, 180, `BroteinBromigo`);

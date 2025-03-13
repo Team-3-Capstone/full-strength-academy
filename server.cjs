@@ -103,9 +103,11 @@ app.get('/api/exercises', async(req, res) => {
 })
 
 //GET ALL EXERCISES BY MUSCLE GROUP
-app.get('/api/exercises/muscle/:musclegroup', async(req, res) => {
-  const selectedMuscle = req.params.musclegroup;
-  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE ANY (muscle_groups)='${selectedMuscle}';`);
+app.get('/api/exercises/muscle/:muscle', async(req, res) => {
+  const selectedMuscle = req.params.muscle;
+  const selectedExercises = await client.query(`
+    SELECT * FROM exercises WHERE muscle_groups @> ARRAY['${selectedMuscle}']::varchar[];
+  `);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
@@ -129,7 +131,8 @@ app.get('/api/exercises/type/:type/muscle/:muscle', async(req, res) => {
   const selectedType = req.params.type;
   const selectedMuscle = req.params.muscle;
   const selectedExercises = await client.query(`
-    SELECT * FROM exercises WHERE type='${selectedType}' AND ANY (muscle_groups)='${selectedMuscle}';`);
+    SELECT * FROM exercises WHERE type='${selectedType}' AND muscle_groups @> ARRAY['${selectedMuscle}']::varchar[];
+  `);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
@@ -144,7 +147,8 @@ app.get('/api/exercises/type/:type/muscle/:muscle/difficulty/:difficulty', async
   const selectedDifficulty = req.params.difficulty;
   const selectedExercises = await client.query(`
     SELECT * FROM exercises WHERE type='${selectedType}' 
-      AND muscle_group='${selectedMuscle}' AND difficulty='${selectedDifficulty}';`);
+      AND muscle_groups @> ARRAY['${selectedMuscle}']::varchar[] AND difficulty='${selectedDifficulty}';
+    `);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
