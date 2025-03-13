@@ -8,15 +8,17 @@ app.use(express.json());
 const cors = require('cors');
 app.use(cors());
 
-app.use(express.static('dist'));
+const path = require('path');
+// app.use(express.static('dist'));
+app.use(express.static(path.join(__dirname, `dist`)));
 
 const { createProfile, authentication, verifyToken, editProfile } = require('./db/profiles.cjs');
 const createExercise = require('./db/exercises.cjs');
 const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
 
-app.get("/", (req, res) => {
-  res.sendFile(`${__dirname}/dist/index.html`);
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(`${__dirname}/dist/index.html`);
+// });
 
 //REGISTER NEW USER - PRODUCES A TOKEN UPON SUCCESSFUL REGISTRATION
 app.post('/api/auth/register', async(req, res) => {
@@ -214,6 +216,10 @@ app.post("/api/meals", async (req, res) => {
   } catch (err) {
     res.status(500).send({ error: `Error creating meal: ${err}` });
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, `dist`, 'index.html'));
 });
 
 app.listen(process.env.PORT, () => {
