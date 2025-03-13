@@ -96,6 +96,16 @@ app.get('/api/auth/me/logs', async(req, res) => {
   }
 });
 
+//GET ALL EXERCISES
+app.get('/api/exercises', async(req, res) => {
+  const allExercises = await client.query(`SELECT * FROM exercises;`);
+  try {
+    res.send(allExercises.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+})
+
 //GET ALL EXERCISES BY MUSCLE GROUP
 app.get('/api/exercises/muscle/:musclegroup', async(req, res) => {
   const selectedMuscle = req.params.musclegroup;
