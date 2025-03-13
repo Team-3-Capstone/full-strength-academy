@@ -15,8 +15,7 @@ const createExercise = require('./db/exercises.cjs');
 const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
 
 app.get("/", (req, res) => {
-  const slqCommand = `<center> <h1> WELCOME <br/> FULL STRENGTH ACADEMY </center> </h1>`;
-  res.send(slqCommand);
+  res.sendFile(`${__dirname}/dist/index.html`);
 });
 
 //REGISTER NEW USER - PRODUCES A TOKEN UPON SUCCESSFUL REGISTRATION
