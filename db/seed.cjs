@@ -24,7 +24,7 @@ const createTables = async() => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(30) UNIQUE NOT NULL,
         difficulty VARCHAR(30) NOT NULL,
-        muscle_group VARCHAR(30) NOT NULL,
+        muscle_groups VARCHAR[] NOT NULL,
         type VARCHAR(30) NOT NULL
       );
 
@@ -68,12 +68,14 @@ const syncAndSeed = async() => {
   await client.connect();
   await dropTables();
   await createTables();
-  await createExercise(`Barbell Bench Press`, `medium`, `chest`, `strength`);
-  await createExercise(`Dumbbell Bench Press`, `hard`, `chest`, `strength`);
-  await createExercise(`Treadmill`, `easy`, `cardio`, `weightloss`);
-  await createExercise(`Barbell Back Squat`, `medium`, `legs`, `strength`);
-  await createExercise(`Barbell Front Squat`, `hard`, `legs`, `strength`);
-  await createExercise(`Jumping Jacks`, `easy`, `cardio`, `weightloss`);
+
+  await createExercise(`Barbell Bench Press`, `medium`, `{chest, triceps}`, `strength`);
+  await createExercise(`Dumbbell Bench Press`, `hard`, `{chest, triceps}`, `strength`);
+  await createExercise(`Treadmill`, `easy`, `{cardio}`, `weightloss`);
+  await createExercise(`Barbell Back Squat`, `medium`, `{legs, glutes}`, `strength`);
+  await createExercise(`Barbell Front Squat`, `hard`, `{legs, glutes}`, `strength`);
+  await createExercise(`Jumping Jacks`, `easy`, `{cardio}`, `weightloss`);
+
   await createMeal(`Chicken Caesar Wrap`, `Low Calorie`, 400, `ChickenKing`);
   await createMeal(`Protein Pancakes`, `Protein`, 180, `BroteinBromigo`);
   await createMeal(`Hard-Boiled Eggs`, `Protein`, 70, `ChickenKing`);
@@ -81,10 +83,12 @@ const syncAndSeed = async() => {
   await createMeal(`Cheese, Spinach, Ground Beef Omelette`, `Protein`, 470, `LightWeightRonnie`);
   await createMeal(`Spaghetti Squash & Meat Sauce`, `Low Calorie`, 300, `BalancedBody`);
   await createMeal(`Broccoli Salad`, `Low Calorie`, 120, `BalancedBody`);
+
   await createProfile(`joecallahan`, `grizzly`, `Joe Callahan`, 70, 260, 34, `male`);
   await createProfile(`yoganstuff`, `meditate`, `Jim Yoga`, 72, 175, 40, `male`);
   await createLog(`joecallahan`, 1, 3, 5, 12, 315, 15, `2025-03-11`);
   await client.end();
 }
+
 
 syncAndSeed();
