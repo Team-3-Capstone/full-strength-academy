@@ -20,13 +20,16 @@ const Register = () => {
           },
           body: JSON.stringify({
             username: newUsername,
-            password: newPassword1
+            password: newPassword1,
+            fullName: '',
+            height: 0,
+            weight: 0,
+            age: 0,
+            gender: ''
           })
         });
+        navigate('/editprofile');
         const newUser = await response.json();
-        setNewUsername('');
-        setNewPassword1('');
-        setNewPassword2('');
         console.log(newUser);
       } catch(err) {
         console.log(err);
@@ -34,7 +37,6 @@ const Register = () => {
     } else {
       alert('Passwords must match');
     }
-    navigate('/editprofile');
   }
 
   return (
