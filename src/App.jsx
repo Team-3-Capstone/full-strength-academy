@@ -12,9 +12,8 @@ import Register from './components/Register.jsx'
 const App = () => {
 
   return (
-    <>
-      <h1>Full Strength Academy</h1>
-
+    <> 
+      
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/editprofile" element={<EditProfile/>} />
@@ -25,8 +24,8 @@ const App = () => {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/register" element={<Register/>} />
       </Routes>
-
-
+   
+    
     </>
   )
 }
