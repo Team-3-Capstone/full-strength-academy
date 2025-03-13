@@ -32,8 +32,7 @@ app.post('/api/auth/login', async(req, res) => {
   const { username, password } = req.body;
   try {
     const token = await authentication(username, password);
-    res.send(`Thank you, ${username}! Authentication successful. Your login token is displayed below: ${token}`);
-    //^^^^^^We can rip this apart and just pass the token up later.^^^^^^^^
+    res.send({ username: `${username}`, token: `${token}` });
   } catch(err) {
     res.send({message: err.message});
   }
@@ -106,7 +105,7 @@ app.get('/api/exercises', async(req, res) => {
 //GET ALL EXERCISES BY MUSCLE GROUP
 app.get('/api/exercises/muscle/:musclegroup', async(req, res) => {
   const selectedMuscle = req.params.musclegroup;
-  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE ANY(muscle_groups)='${selectedMuscle}';`);
+  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE ANY (muscle_groups)='${selectedMuscle}';`);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
@@ -130,7 +129,7 @@ app.get('/api/exercises/type/:type/muscle/:muscle', async(req, res) => {
   const selectedType = req.params.type;
   const selectedMuscle = req.params.muscle;
   const selectedExercises = await client.query(`
-    SELECT * FROM exercises WHERE type='${selectedType}' AND ANY(muscle_groups)='${selectedMuscle}';`);
+    SELECT * FROM exercises WHERE type='${selectedType}' AND ANY (muscle_groups)='${selectedMuscle}';`);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
