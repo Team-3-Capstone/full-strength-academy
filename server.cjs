@@ -110,7 +110,7 @@ app.get('/api/exercises', async(req, res) => {
 //GET ALL EXERCISES BY MUSCLE GROUP
 app.get('/api/exercises/muscle/:musclegroup', async(req, res) => {
   const selectedMuscle = req.params.musclegroup;
-  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE muscle_group='${selectedMuscle}';`);
+  const selectedExercises = await client.query(`SELECT * FROM exercises WHERE ANY(muscle_groups)='${selectedMuscle}';`);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
@@ -134,7 +134,7 @@ app.get('/api/exercises/type/:type/muscle/:muscle', async(req, res) => {
   const selectedType = req.params.type;
   const selectedMuscle = req.params.muscle;
   const selectedExercises = await client.query(`
-    SELECT * FROM exercises WHERE type='${selectedType}' AND muscle_group='${selectedMuscle}';`);
+    SELECT * FROM exercises WHERE type='${selectedType}' AND ANY(muscle_groups)='${selectedMuscle}';`);
   try {
     res.send(selectedExercises.rows);
   } catch(err) {
@@ -159,18 +159,21 @@ app.get('/api/exercises/type/:type/muscle/:muscle/difficulty/:difficulty', async
 
 // POST /api/exercises - TO CREATE EXERCISES
 app.post("/api/exercises", async (req, res) => {
-  const { exerciseName, exerciseDifficulty, exerciseMuscle, exerciseType } = req.body;
+  const { exerciseName, exerciseDifficulty, exerciseMuscles, exerciseType } = req.body;
 
   try {
+    // exerciseMuscles is an array
+    const muscleGroups = Array.isArray(exerciseMuscles) ? exerciseMuscles : [exerciseMuscles];
+
     await createExercise(
       exerciseName,
       exerciseDifficulty,
-      exerciseMuscle,
+      muscleGroups,  //Pass array of muscle groups
       exerciseType
     );
     res.status(201).send({ message: "Exercise created successfully!" });
   } catch (err) {
-    res.status(500).send({ error: `Error creating exercise. ${err}` });
+    res.status(500).send({ error: `Error creating exercise: ${err}` });
   }
 });
 
