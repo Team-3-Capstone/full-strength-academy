@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, `dist`)));
 const { createProfile, authentication, verifyToken, editProfile } = require('./db/profiles.cjs');
 const createExercise = require('./db/exercises.cjs');
 const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
+const createLog = require('./db/logs.cjs');
 
 //REGISTER NEW USER - PRODUCES A TOKEN UPON SUCCESSFUL REGISTRATION
 app.post('/api/auth/register', async(req, res) => {
@@ -42,8 +43,7 @@ app.post('/api/auth/login', async(req, res) => {
 app.get('/api/auth/login', async(req, res) => {
   try {
     const user = await verifyToken(req.headers.authorization);
-    //^^^^^FRONTEND "HEADERS: {AUTHORIZATION: TOKEN} COMES FROM HERE
-    res.send(`Thank you, ${user.username}. You are logged in!`);
+    res.send({message: `verified`});
   } catch(err) {
     res.send({message: err.message});
   }
@@ -53,11 +53,12 @@ app.get('/api/auth/login', async(req, res) => {
 app.get('/api/auth/me', async(req, res) => {
   const user = await verifyToken(req.headers.authorization);
   if(user) {
-    res.send(`Your username is ${user.username}. Your full name is ${user.fullName}.
-      You're ${user.height} inches tall, weighing ${user.weight} pounds. You're a ${user.age} year old ${user.gender}.`);
-  //^^^^^^WE CAN CONFIGURE THIS TO PASS UP USER INFO AS AN OBJECT AT THE APPROPRIATE TIME.
+    res.send({ 
+      fullName: `${user.fullName}`, height: `${user.height}`, 
+      weight: `${user.weight}`, age: `${user.age}`, gender: `${user.gender}` 
+    });
   } else {
-    res.send(`How did you get here!? You must be logged in to access this feature!`);
+    res.send({message: `Token required`});
   }
 });
 
@@ -68,9 +69,9 @@ app.put('/api/auth/me', async(req, res) => {
   try {
     if(user) {
       await editProfile(user.username, fullName, height, weight, age, gender);
-      res.send(`Profile updated.`);
+      res.send({message: `Profile updated.`});
     } else {
-      res.send(`You must be logged in to do this.`);
+      res.send({message: `You must be logged in to do this.`});
     }
   } catch(err) {
     res.send({message: err.message});
@@ -85,12 +86,30 @@ app.get('/api/auth/me/logs', async(req, res) => {
     if(user) {
       res.send(allUserLogs.rows[0]);
     } else {
-      res.send(`You must be logged in to do this.`);
+      res.send({message: `You must be logged in to do this.`});
     }
   } catch(err) {
     res.send({message: err.message});
   }
 });
+
+//POST NEW LOG. REQUIRES ACCESS TOKEN.
+// app.post('/api/auth/me/logs', async(req, res) => {
+//   const user = await verifyToken(req.headers.authorization);
+//   const { exercise_id, meal_id, sets_completed,
+//     reps_per_set, weight_used, duration_minutes, date } = req.body;
+//   try {
+//     if(user) {
+//       await createLog(user.username, exercise_id, meal_id, sets_completed,
+//         reps_per_set, weight_used, duration_minutes, date);
+//       res.send({message: `Log created successfully.`});
+//     } else {
+//       res.send({message: `You must be logged in to do this.`});
+//     }
+//   } catch(err) {
+//     res.send({message: err.message});
+//   }
+// });
 
 //GET ALL EXERCISES
 app.get('/api/exercises', async(req, res) => {
@@ -199,38 +218,18 @@ app.get('/api/meals', async(req, res) => {
   }
 });
 
-// GET /api/meals - MEAL BY iD
-app.get("/api/meals/:id", async (req, res) => {
-  const { id } = req.params;
-
+//GET ALL MEALS BY FOCUS GOAL
+app.get("/api/meals/focusgoal/:focusgoal", async (req, res) => {
+  const selectedFocusGoal = req.params.focusgoal;
+  const selectedMeals = await client.query(`SELECT * FROM meals WHERE focus_goal='${selectedFocusGoal}'`);
   try {
-    const meal = await getMealById(id);
-    if (meal) {
-      res.status(200).send(meal);
-    } else {
-      res.status(404).send({ message: "Meal not found" });
-    }
-  } catch (err) {
-    res.status(500).send({ error: `Error retrieving meal: ${err}` });
+    res.send(selectedMeals.rows);
+  } catch(err) {
+    res.send({message: err.message});
   }
 });
 
-app.get("/api/mealsByFocusGoal/:focusGoal", async (req, res) => {
-  const { focusGoal } = req.params;
-
-  try {
-    const meal = await getMealByFocusGoal(focusGoal);
-    if (meal) {
-      res.status(200).send(meal);
-    } else {
-      res.status(404).send({ message: "Meal not found" });
-    }
-  } catch (err) {
-    res.status(500).send({ error: `Error retrieving meal: ${err}` });
-  }
-});
-
-// POST /api/meals - TO CREATE MEALS
+//CREATE MEALS
 app.post("/api/meals", async (req, res) => {
   const { mealName, mealFocus, mealCalories, postedByUsername } = req.body;
 
