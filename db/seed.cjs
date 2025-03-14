@@ -96,13 +96,13 @@ const syncAndSeed = async() => {
   await createExercise(`Treadmill Sprint`, `hard`, `{cardio}`, `weightloss`);
   await createExercise(`Chest Fly`, `medium`, `{chest}`, `strength`);
 
-  await createMeal(`Chicken Caesar Wrap`, `Low Calorie`, 400, `ChickenKing`);
-  await createMeal(`Protein Pancakes`, `Protein`, 180, `BroteinBromigo`);
-  await createMeal(`Hard-Boiled Eggs`, `Protein`, 70, `ChickenKing`);
-  await createMeal(`Turkey, Cheese Rollups`, `Protein`, 250, `LightWeightRonnie`);
-  await createMeal(`Cheese, Spinach, Ground Beef Omelette`, `Protein`, 470, `LightWeightRonnie`);
-  await createMeal(`Spaghetti Squash & Meat Sauce`, `Low Calorie`, 300, `BalancedBody`);
-  await createMeal(`Broccoli Salad`, `Low Calorie`, 120, `BalancedBody`);
+  await createMeal(`Chicken Caesar Wrap`, `lowcal`, 400, `ChickenKing`);
+  await createMeal(`Protein Pancakes`, `protein`, 180, `BroteinBromigo`);
+  await createMeal(`Hard-Boiled Eggs`, `protein`, 70, `ChickenKing`);
+  await createMeal(`Turkey, Cheese Rollups`, `protein`, 250, `LightWeightRonnie`);
+  await createMeal(`Cheese, Spinach, Ground Beef Omelette`, `protein`, 470, `LightWeightRonnie`);
+  await createMeal(`Spaghetti Squash & Meat Sauce`, `lowcal`, 300, `BalancedBody`);
+  await createMeal(`Broccoli Salad`, `lowcal`, 120, `BalancedBody`);
 
   await createProfile(`joecallahan`, `grizzly`, `Joe Callahan`, 70, 260, 34, `male`);
   await createProfile(`yoganstuff`, `meditate`, `Jim Yoga`, 72, 175, 40, `male`);
