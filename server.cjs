@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, `dist`)));
 
 const { createProfile, authentication, verifyToken, editProfile } = require('./db/profiles.cjs');
 const createExercise = require('./db/exercises.cjs');
-const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
+const createMeal = require('./db/meals.cjs');
 const createLog = require('./db/logs.cjs');
 
 //REGISTER NEW USER - PRODUCES A TOKEN UPON SUCCESSFUL REGISTRATION
@@ -236,7 +236,6 @@ app.get("/api/meals/focusgoal/:focusgoal", async (req, res) => {
 //CREATE MEALS
 app.post("/api/meals", async (req, res) => {
   const { mealName, mealFocus, mealCalories, postedByUsername } = req.body;
-
   try {
     await createMeal(mealName, mealFocus, mealCalories, postedByUsername);
     res.status(201).send({ message: "Meal created successfully!" });
