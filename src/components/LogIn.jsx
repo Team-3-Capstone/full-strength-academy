@@ -29,6 +29,7 @@ const LogIn = () => {
       } else {
         setToken(userLogin.token);
         localStorage.setItem('token', userLogin.token);
+        localStorage.setItem('username', userLogin.username);
         navigate('/logs');
       }
     } catch(err) {

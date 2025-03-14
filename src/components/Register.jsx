@@ -36,6 +36,7 @@ const Register = () => {
         } else {
           setNewToken(newUser.token);
           localStorage.setItem('token', newUser.token);
+          localStorage.setItem('username', newUser.username);
           navigate('/editprofile')
         }
       } catch(err) {
