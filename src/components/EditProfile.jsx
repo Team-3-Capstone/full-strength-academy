@@ -16,8 +16,22 @@ const EditProfile = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me');
-      console.log(response)
+      const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me', {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken}`
+        },
+        body: JSON.stringify({
+          fullName: newFullName,
+          height: newHeight,
+          weight: newWeight,
+          age: newWeight,
+          gender: newGender
+        })
+      });
+      const result = await response.json();
+      console.log(result);
 
     } catch(err) {
       console.log(err);
@@ -27,15 +41,23 @@ const EditProfile = () => {
 
   return (
     <>
-      <h2>Edit My Profile!</h2>
-      <form onSubmit={ editUserProfile }>
-        <input placeholder="full name" onChange={(event) => {setNewFullName(event.target.value)}} />
-        <input placeholder="height in inches" type="number" onChange={(event) => {setNewHeight(event.target.value)}} />
-        <input placeholder="weight in pounds" type="number" onChange={(event) => {setNewWeight(event.target.value)}} />
-        <input placeholder="age" type="number" onChange={(event) => {setNewAge(event.target.value)}} />
-        <input placeholder="gender" onChange={(event) => {setNewGender(event.target.value)}}/>
-        <button>Update Profile</button>
-      </form>
+      {
+        getToken ?
+          <section>
+            <h2>Edit My Profile!</h2>
+            <h3>Welcome: {getUsername}</h3>
+            <form onSubmit={ editUserProfile }>
+              <input placeholder="full name" onChange={(event) => {setNewFullName(event.target.value)}} />
+              <input placeholder="height in inches" type="number" onChange={(event) => {setNewHeight(event.target.value)}} />
+              <input placeholder="weight in pounds" type="number" onChange={(event) => {setNewWeight(event.target.value)}} />
+              <input placeholder="age" type="number" onChange={(event) => {setNewAge(event.target.value)}} />
+              <input placeholder="gender" onChange={(event) => {setNewGender(event.target.value)}}/>
+              <button>Update Profile</button>
+            </form>
+          </section>
+        :
+          <h2>Must Be Logged In To View This Page</h2>
+    }
     </>
   )
 }
