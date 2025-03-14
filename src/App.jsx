@@ -7,13 +7,14 @@ import Logs from './components/Logs.jsx';
 import Meals from './components/Meals.jsx'
 import Profile from './components/Profile.jsx';
 import Register from './components/Register.jsx'
+import NavBar from './components/navbar.jsx';
 
 
 const App = () => {
 
   return (
     <> 
-      
+      <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/editprofile" element={<EditProfile/>} />
