@@ -7,7 +7,7 @@ import Logs from './components/Logs.jsx';
 import Meals from './components/Meals.jsx'
 import Profile from './components/Profile.jsx';
 import Register from './components/Register.jsx'
-import NavBar from './components/navbar.jsx';
+import NavBar from './components/NavBar.jsx';
 
 
 const App = () => {
