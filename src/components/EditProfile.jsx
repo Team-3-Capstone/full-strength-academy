@@ -17,10 +17,10 @@ const EditProfile = () => {
 
     try {
       const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me', {
-        method: "PATCH",
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken}`
+          'Authorization': `${getToken}`
         },
         body: JSON.stringify({
           fullName: newFullName,
