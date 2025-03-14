@@ -84,7 +84,7 @@ app.get('/api/auth/me/logs', async(req, res) => {
   const allUserLogs = await client.query(`SELECT * FROM logs WHERE username='${user.username}';`);
   try {
     if(user) {
-      res.send(allUserLogs.rows[0]);
+      res.send(allUserLogs.rows);
     } else {
       res.send({message: `You must be logged in to do this.`});
     }
@@ -94,22 +94,26 @@ app.get('/api/auth/me/logs', async(req, res) => {
 });
 
 //POST NEW LOG. REQUIRES ACCESS TOKEN.
-// app.post('/api/auth/me/logs', async(req, res) => {
-//   const user = await verifyToken(req.headers.authorization);
-//   const { exercise_id, meal_id, sets_completed,
-//     reps_per_set, weight_used, duration_minutes, date } = req.body;
-//   try {
-//     if(user) {
-//       await createLog(user.username, exercise_id, meal_id, sets_completed,
-//         reps_per_set, weight_used, duration_minutes, date);
-//       res.send({message: `Log created successfully.`});
-//     } else {
-//       res.send({message: `You must be logged in to do this.`});
-//     }
-//   } catch(err) {
-//     res.send({message: err.message});
-//   }
-// });
+app.post('/api/auth/me/logs', async(req, res) => {
+  const user = await verifyToken(req.headers.authorization);
+  const { exercise_id, meal_id, sets_completed,
+    reps_per_set, weight_used, duration_minutes, date } = req.body;
+  try {
+    if(user) {
+      await createLog(user.username, exercise_id, meal_id, sets_completed,
+        reps_per_set, weight_used, duration_minutes, date);
+      res.send({
+        username: user.username, exerciseId: exercise_id, mealId: meal_id,
+        setsCompleted: sets_completed, repsPerSet: reps_per_set, weightUsed: weight_used,
+        durationMinutes: duration_minutes, logDate: date
+      });
+    } else {
+      res.send({message: `You must be logged in to do this.`});
+    }
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
 
 //GET ALL EXERCISES
 app.get('/api/exercises', async(req, res) => {
