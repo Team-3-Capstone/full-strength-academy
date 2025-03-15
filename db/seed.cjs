@@ -157,10 +157,15 @@ const syncAndSeed = async() => {
   await createMeal(`Sheet Pan Steak, Potatoes & Asparagus`, `lowcal`, 490, `joecallahan`);
 
   await createProfile(`test`, `password`, `Test User`, 64, 130, 85, `female`);
-  await createProfile(`joecallahan`, `grizzly`, `Joe Callahan`, 70, 260, 34, `male`);
-  await createProfile(`yoganstuff`, `meditate`, `Jim Yoga`, 72, 175, 40, `male`);
+  await createProfile(`gymyoga`, `meditate`, `Jim Yoga`, 72, 175, 40, `male`);
 
-  await createLog(`joecallahan`, 1, 3, 5, 12, 315, 15, `2025-03-11`);
+  await createLog(`test`, 4, 31, 5, 12, 525, 30, `2025-03-10`);
+  await createLog(`test`, 1, 3, 5, 12, 315, 15, `2025-03-11`);
+  await createLog(`test`, 7, 15, 4, 10, 200, 20, `2025-03-12`);
+  await createLog(`test`, 3, 10, null, null, null, 60, `2025-03-13`);
+  await createLog(`test`, 12, 22, null, null, null, 60, `2025-03-14`);
+  await createLog(`test`, 30, 30, 7, 21, 50, 30, `2025-03-15`);
+
   await client.end();
 }
 
