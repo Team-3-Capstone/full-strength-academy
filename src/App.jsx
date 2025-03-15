@@ -8,6 +8,7 @@ import Meals from './components/Meals.jsx'
 import Profile from './components/Profile.jsx';
 import Register from './components/Register.jsx'
 import NavBar from './components/NavBar.jsx';
+import BmiCalculaltor from './components/features/BmiCalculator'
 
 
 const App = () => {
@@ -24,9 +25,8 @@ const App = () => {
         <Route path="/meals" element={<Meals/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/bmi" element={<BmiCalculaltor/>} />
       </Routes>
-   
-    
     </>
   )
 }
