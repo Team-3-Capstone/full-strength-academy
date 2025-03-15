@@ -12,6 +12,9 @@ const NavBar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
+              <Link to="/bmi">Bmi App</Link> 
+            </li>
+            <li>
               <Link to="/meals">Meals</Link>
             </li>
             <li>
@@ -23,6 +26,7 @@ const NavBar = () => {
             <li>
               <Link to="/Register">Register</Link> 
             </li>
+        
           </ul>
         </nav>
       </header>
