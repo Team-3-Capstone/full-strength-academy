@@ -12,8 +12,7 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, `dist`)));
 
 const { createProfile, authentication, verifyToken, editProfile } = require('./db/profiles.cjs');
-const createExercise = require('./db/exercises.cjs');
-const { createMeal, getMealById, getMealByFocusGoal } = require('./db/meals.cjs');
+const createMeal = require('./db/meals.cjs');
 const createLog = require('./db/logs.cjs');
 
 //REGISTER NEW USER - PRODUCES A TOKEN UPON SUCCESSFUL REGISTRATION
@@ -162,7 +161,7 @@ app.get('/api/exercises/type/:type', async(req, res) => {
   }
 });
 
-//GET ALL EXERCISES BY TYPE & MUSCLE GROUP (FOR CUSTOMIZATION)
+//GET ALL EXERCISES BY TYPE & MUSCLE GROUP
 app.get('/api/exercises/type/:type/muscle/:muscle', async(req, res) => {
   const selectedType = req.params.type;
   const selectedMuscle = req.params.muscle;
@@ -176,7 +175,7 @@ app.get('/api/exercises/type/:type/muscle/:muscle', async(req, res) => {
   }
 });
 
-//GET ALL EXERCISES BY TYPE, MUSCLE GROUP, & DIFFICULTY (FOR EVEN MORE CUSTOMIZATION!)
+//GET ALL EXERCISES BY TYPE, MUSCLE GROUP, & DIFFICULTY
 app.get('/api/exercises/type/:type/muscle/:muscle/difficulty/:difficulty', async(req, res) => {
   const selectedType = req.params.type;
   const selectedMuscle = req.params.muscle;
@@ -189,26 +188,6 @@ app.get('/api/exercises/type/:type/muscle/:muscle/difficulty/:difficulty', async
     res.send(selectedExercises.rows);
   } catch(err) {
     res.send({message: err.message});
-  }
-});
-
-// POST /api/exercises - TO CREATE EXERCISES
-app.post("/api/exercises", async (req, res) => {
-  const { exerciseName, exerciseDifficulty, exerciseMuscles, exerciseType } = req.body;
-
-  try {
-    // exerciseMuscles is an array
-    const muscleGroups = Array.isArray(exerciseMuscles) ? exerciseMuscles : [exerciseMuscles];
-
-    await createExercise(
-      exerciseName,
-      exerciseDifficulty,
-      muscleGroups,  //Pass array of muscle groups
-      exerciseType
-    );
-    res.status(201).send({ message: "Exercise created successfully!" });
-  } catch (err) {
-    res.status(500).send({ error: `Error creating exercise: ${err}` });
   }
 });
 
@@ -236,12 +215,11 @@ app.get("/api/meals/focusgoal/:focusgoal", async (req, res) => {
 //CREATE MEALS
 app.post("/api/meals", async (req, res) => {
   const { mealName, mealFocus, mealCalories, postedByUsername } = req.body;
-
   try {
     await createMeal(mealName, mealFocus, mealCalories, postedByUsername);
-    res.status(201).send({ message: "Meal created successfully!" });
+    res.send({message: `${mealName} created!`});
   } catch (err) {
-    res.status(500).send({ error: `Error creating meal: ${err}` });
+    res.send({message: err.message});
   }
 });
 
@@ -250,5 +228,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on port :  http://localhost:${process.env.PORT}`);
+  console.log(`Server running locally at: http://localhost:${process.env.PORT}`);
 });

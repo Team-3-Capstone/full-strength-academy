@@ -1,0 +1,98 @@
+
+
+
+#bmi-chart-component {
+  width: 85%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  
+
+}
+
+.bmiApp {
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.formAndPlan {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.formAndPlan  h2 {
+ color: black;
+ font-size: 2rem;
+}
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.bmi-input[type="text"] {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 300px;
+  place-self: center;
+}
+
+
+.bmi-btn{
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  width: 300px;
+  place-self: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.bmi-btn:hover {
+  background-color: #45a049;
+}
+
+/* Result Section */
+
+#bmi-category > h3 {
+color: black;
+place-self: center;
+font-size: 2rem;
+
+}
+
+#bmi-category > h4 {
+  color: black;
+  place-self: center;
+  
+  }
+
+.mealAndWorkoutPlan {
+  display: flex;
+  gap: 30px;
+  color: black;
+}
+
+.muscle-group li {
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 15px;
+  }
+
+  input[type="text"],
+  button {
+    font-size: 14px;
+  }
+}
