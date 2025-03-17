@@ -9,8 +9,6 @@ const EditProfile = () => {
 
   const getToken = localStorage.getItem('token');
   const getUsername = localStorage.getItem('username');
-  console.log(getToken);
-  console.log(getUsername);
   
   const editUserProfile = async(event) => {
     event.preventDefault();
@@ -26,7 +24,7 @@ const EditProfile = () => {
           fullName: newFullName,
           height: newHeight,
           weight: newWeight,
-          age: newWeight,
+          age: newAge,
           gender: newGender
         })
       });
