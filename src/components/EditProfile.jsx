@@ -1,8 +1,63 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const EditProfile = () => {
+  const [ newFullName, setNewFullName ] = useState('');
+  const [ newHeight, setNewHeight ] = useState('');
+  const [ newWeight, setNewWeight ] = useState('');
+  const [ newAge, setNewAge ] = useState('');
+  const [ newGender, setNewGender ] = useState('');
+
+  const getToken = localStorage.getItem('token');
+  const getUsername = localStorage.getItem('username');
+
+  const navigate = useNavigate();
+  
+  const editUserProfile = async(event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${getToken}`
+        },
+        body: JSON.stringify({
+          fullName: newFullName,
+          height: newHeight,
+          weight: newWeight,
+          age: newAge,
+          gender: newGender
+        })
+      });
+      const result = await response.json();
+      navigate('/profile');
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
 
   return (
     <>
-      <h2>Edit My Profile!</h2>
+      {
+        getToken ?
+          <section>
+            <h2>Edit My Profile!</h2>
+            <h3>Welcome: {getUsername}</h3>
+            <form onSubmit={ editUserProfile }>
+              <input placeholder="full name" onChange={(event) => {setNewFullName(event.target.value)}} value={ newFullName } />
+              <input placeholder="height in inches" type="number" onChange={(event) => {setNewHeight(event.target.value)}} value={ newHeight } />
+              <input placeholder="weight in pounds" type="number" onChange={(event) => {setNewWeight(event.target.value)}} value={ newWeight } />
+              <input placeholder="age" type="number" onChange={(event) => {setNewAge(event.target.value)}} value={ newAge } />
+              <input placeholder="gender" onChange={(event) => {setNewGender(event.target.value)}} valur={ newGender }/>
+              <button>Update Profile</button>
+            </form>
+          </section>
+        :
+          <h2>Must Be Logged In To View This Page</h2>
+    }
     </>
   )
 }
