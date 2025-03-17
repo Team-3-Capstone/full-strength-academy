@@ -49,7 +49,7 @@ const verifyToken = async(token) => {
           weight: verifiedUser.weight_pounds, age: verifiedUser.age, gender: verifiedUser.gender
       }
     } else {
-      throw new Error(`VERIFIYTOKEN ERROR`);
+      throw new Error(`VERIFYTOKEN ERROR`);
     }
   } catch(err) {
     console.log(`VERIFYTOKEN ERROR MESSAGE: ${err}`);
