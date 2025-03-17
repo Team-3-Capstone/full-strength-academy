@@ -51,13 +51,17 @@ app.get('/api/auth/login', async(req, res) => {
 //GET USER DETAILS FOR DISPLAY. REQUIRES ACCESS TOKEN TO VIEW INFORMATION.
 app.get('/api/auth/me', async(req, res) => {
   const user = await verifyToken(req.headers.authorization);
-  if(user) {
-    res.send({ 
-      fullName: `${user.fullName}`, height: `${user.height}`, 
-      weight: `${user.weight}`, age: `${user.age}`, gender: `${user.gender}` 
-    });
-  } else {
-    res.send({message: `Token required`});
+  try {
+    if(user) {
+      res.send({
+        fullName: `${user.fullName}`, height: `${user.height}`, 
+        weight: `${user.weight}`, age: `${user.age}`, gender: `${user.gender}` 
+      });
+    } else {
+      res.send({message: `user not found`});
+    }
+  } catch(err) {
+    res.send({message: err.message});
   }
 });
 
