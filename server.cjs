@@ -69,9 +69,9 @@ app.put('/api/auth/me', async(req, res) => {
   try {
     if(user) {
       await editProfile(user.username, fullName, height, weight, age, gender);
-      res.send({message: `Profile updated.`});
-    } else {
       res.send({ username: `${user.username}`, fullName: `${fullName}`, height: `${height}`, weight: `${weight}`, age: `${age}`, gender: `${gender}` });
+    } else {
+      res.send({message: err.message});
     }
   } catch(err) {
     res.send({message: err.message});
