@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   const [ newFullName, setNewFullName ] = useState('');
@@ -9,6 +10,8 @@ const EditProfile = () => {
 
   const getToken = localStorage.getItem('token');
   const getUsername = localStorage.getItem('username');
+
+  const navigate = useNavigate();
   
   const editUserProfile = async(event) => {
     event.preventDefault();
@@ -29,8 +32,7 @@ const EditProfile = () => {
         })
       });
       const result = await response.json();
-      console.log(result);
-
+      navigate('/profile');
     } catch(err) {
       console.log(err);
     }
