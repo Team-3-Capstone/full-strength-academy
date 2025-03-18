@@ -32,7 +32,7 @@ const LogIn = ({ setToken }) => {
         // Successfully logged in
         setToken(userLogin.token); // Set token in App.js
         localStorage.setItem('token', userLogin.token); // Save token to localStorage
-        navigate('/logs'); // Navigate to the logs page
+        navigate('/profile'); // Navigate to the logs page
       }
     } catch (err) {
       console.log(err);
