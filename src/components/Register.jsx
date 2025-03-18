@@ -6,6 +6,7 @@ const Register = () => {
   const [ newPassword1, setNewPassword1 ] = useState('');
   const [ newPassword2, setNewPassword2 ] = useState('');
   const [ newToken, setNewToken ] = useState('');
+  const [ passwordMatchError, setPasswordMatchError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -43,7 +44,8 @@ const Register = () => {
         console.log(err);
       }
     } else {
-      alert('Passwords must match');
+      event.preventDefault();
+      setPasswordMatchError('Passwords must match');
     }
   }
 
@@ -55,6 +57,9 @@ const Register = () => {
         <input placeholder="enter password" type="password" onChange={(event) => {setNewPassword1(event.target.value)}} />
         <input placeholder="verify password" type="password" onChange={(event) => {setNewPassword2(event.target.value)}} />
         <button>Create Account</button>
+        {
+          passwordMatchError ? <p>Passwords Must Match</p> : null
+        }
       </form>
     </>
   )

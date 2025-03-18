@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const LogIn = ({ setToken }) => {
   const [inputUsername, setInputUsername] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const [ badLogin, setBadLogin ] = useState(null);
 
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const LogIn = ({ setToken }) => {
       console.log(userLogin);
 
       if (userLogin.message === 'Authentication error.') {
-        alert('Invalid login attempt');
+        setBadLogin('Invalid login attempt');
       } else {
         // Successfully logged in
         setToken(userLogin.token); // Set token in App.js
@@ -45,6 +46,9 @@ const LogIn = ({ setToken }) => {
         <input placeholder='username' onChange={(event) => { setInputUsername(event.target.value) }} />
         <input placeholder='password' type='password' onChange={(event) => { setInputPassword(event.target.value) }} />
         <button>Login</button>
+        {
+          badLogin ? <p>Invalid Login Attempt, Try Again</p> : null
+        }
       </form>
     </>
   );
