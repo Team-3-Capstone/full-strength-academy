@@ -48,7 +48,7 @@ const LogsComponent = () => {
   // Fetch Logs
   const fetchLogs = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/auth/me/logs', {
+      const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me/logs', {
         method: 'GET',
         headers: {
           Authorization: `${localStorage.getItem('token')}`, // Pass the token from localStorage
