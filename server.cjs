@@ -126,7 +126,18 @@ app.get('/api/exercises', async(req, res) => {
   } catch(err) {
     res.send({message: err.message});
   }
-})
+});
+
+//GET EXERCISE BY ID
+app.get('/api/exercises/id/:id', async(req, res) => {
+  const selectedId = req.params.id;
+  const selectedExercise = await client.query(`SELECT * FROM exercises WHERE id=${selectedId};`);
+  try {
+    res.send(selectedExercise.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
 
 //GET ALL EXERCISES BY DIFFICULTY
 app.get('/api/exercises/difficulty/:difficulty', async(req, res) => {
@@ -200,6 +211,17 @@ app.get('/api/meals', async(req, res) => {
   const allMeals = await client.query(`SELECT * FROM meals;`);
   try {
     res.send(allMeals.rows);
+  } catch(err) {
+    res.send({message: err.message});
+  }
+});
+
+//GET MEAL BY ID
+app.get('/api/meals/id/:id', async(req, res) => {
+  const selectedId = req.params.id;
+  const selectedMeal = await client.query(`SELECT * FROM meals WHERE id=${selectedId};`);
+  try {
+    res.send(selectedMeal.rows);
   } catch(err) {
     res.send({message: err.message});
   }
