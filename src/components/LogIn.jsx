@@ -25,7 +25,7 @@ const LogIn = ({ setToken }) => {
       const userLogin = await response.json();
       console.log(userLogin);
 
-      if (userLogin.token === 'undefined') {
+      if (userLogin.message === 'Authentication error.') {
         alert('Invalid login attempt');
       } else {
         // Successfully logged in
