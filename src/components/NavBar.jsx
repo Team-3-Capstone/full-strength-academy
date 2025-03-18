@@ -7,6 +7,7 @@ const NavBar = ({ token, setToken }) => {
   const signOut = (e) => {
     e.preventDefault();
     localStorage.removeItem('token'); // Remove token from localStorage
+    localStorage.removeItem('username');
     setToken(''); // Clear the token state in App.js
     navigate('/login'); // Redirect to login page
   };

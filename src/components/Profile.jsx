@@ -100,7 +100,7 @@ const Profile = () => {
                   <Link to='/editprofile'>Edit My Info</Link>
                 </button>
               </section>
-
+             
               <section>
                 <h3>Last Log Entry: {month}/{day}/{year}</h3>
                 <p>{lastMealId}</p>
@@ -113,6 +113,12 @@ const Profile = () => {
                   <Link to='/logs'>Create a New Log</Link>
                 </button>
               </section>
+              
+              <section>
+                <button>
+                  <Link to='/addmealform'>Share a New Recipe with the Community</Link>
+                </button>
+              </section>
           </>
         :
           <section><h2>Create an account to access this feature.</h2></section>
@@ -121,7 +127,6 @@ const Profile = () => {
           {/* BMI graph only on page? */}
           {/* Water consumption feature, sleep log? -- resets every day at 11:59 pm */}
           {/* Links to custom workout and meal plans -- have a reset every Saturday at 11:59 pm. Once a workout or meal has been eaten that week */}
-          {/* Link to create new meals for the community */}
     </>
   )
 }
