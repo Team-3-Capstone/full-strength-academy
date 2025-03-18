@@ -5,6 +5,8 @@ const Profile = () => {
   const token = localStorage.getItem('token');
   const [userStats, setUserStats] = useState({});
   const [lastLog, setLastLog] = useState(null);
+  const [lastLoggedExercise, setLastLoggedExercise] = useState(null);
+  const [lastLoggedMeal, setLastLoggedMeal] = useState(null);
 
   const fullName = userStats.fullName;
   const firstName = fullName?.split(' ')[0];
@@ -14,8 +16,6 @@ const Profile = () => {
   const age = userStats.age;
   const gender = userStats.gender;
 
-  let lastExerciseId = '';
-  let lastMealId = '';
   let lastExerciseRepsPerSet= '';
   let lastExerciseSetsCompleted = '';
   let lastWeightUsed = '';
@@ -25,8 +25,6 @@ const Profile = () => {
   let lastLogDay = '';
 
   if(lastLog) {
-    lastExerciseId = lastLog.exercise_id;
-    lastMealId = lastLog.meal_id;
     lastExerciseRepsPerSet = lastLog.reps_per_set;
     lastExerciseSetsCompleted = lastLog.sets_completed;
     lastWeightUsed = lastLog.weight_used;
@@ -56,17 +54,26 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    const getLastLog = async() => {
-      const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me/logs', {
+    const getLastLogInfo = async() => {
+      const logResponse = await fetch('https://full-strength-academy.onrender.com/api/auth/me/logs', {
         headers: {
           "Authorization": `${token}`
         }
       });
-      const allLogs = await response.json();
+      const allLogs = await logResponse.json();
       setLastLog(allLogs[0]);
+
+      const exerciseResponse = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${allLogs[0].exercise_id}`);
+      const lastExercise = await exerciseResponse.json();
+      setLastLoggedExercise(lastExercise[0].name);
+
+      const mealResponse = await fetch(`https://full-strength-academy.onrender.com/api/meals/id/${allLogs[0].meal_id}`);
+      const lastMeal = await mealResponse.json();
+      setLastLoggedMeal(lastMeal[0].name);
     }
-    getLastLog();
+    getLastLogInfo();
   }, []);
+  
   
   return (
     <> {
@@ -89,8 +96,8 @@ const Profile = () => {
   
         <section>
           <h3>Last Log Entry: {lastLogMonth}/{lastLogDay}/{lastLogYear}</h3>
-          <p>{lastMealId}</p>
-          <p>{lastExerciseId}</p>
+          <p>{lastLoggedMeal}</p>
+          <p>{lastLoggedExercise}</p>
           <p>Reps Per Set: {lastExerciseRepsPerSet}</p>
           <p>Sets: {lastExerciseSetsCompleted}</p>
           <p>Duration: {lastExerciseDurationMinutes} minutes</p>
