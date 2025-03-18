@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/logs" element={<Logs />} />
         <Route path="/meals" element={<Meals />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register setToken={setToken} />} />
         <Route path="/bmi" element={<BmiCalculaltor />} />
       </Routes>
     </>

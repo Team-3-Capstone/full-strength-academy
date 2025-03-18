@@ -45,6 +45,12 @@ const NavBar = ({ token, setToken }) => {
                 <Link to="/exercises">Exercises</Link>
               </li>
               <li>
+                <Link to="/logs">My Logs</Link>
+              </li>
+              <li>
+                <Link to="/profile">My Profile</Link>
+              </li>
+              <li>
                 <button
                   onClick={signOut}
                   style={{
