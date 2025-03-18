@@ -65,7 +65,7 @@ const Profile = () => {
 
   // useEffect(() => {
   //   const getExerciseById = async() => {
-  //     const response = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${exerciseId}`);
+  //     const response = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${lastExerciseId}`);
   //     const selectedExerciseObj = await response.json();
   //     setExerciseById(selectedExerciseObj.name);
   //   }
