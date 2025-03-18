@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ setToken }) => {
   const [ newUsername, setNewUsername ] = useState('');
   const [ newPassword1, setNewPassword1 ] = useState('');
   const [ newPassword2, setNewPassword2 ] = useState('');
-  const [ newToken, setNewToken ] = useState('');
-  const [ passwordMatchError, setPasswordMatchError] = useState(null);
+  const [ passwordMatchError, setPasswordMatchError ] = useState(null);
 
   const navigate = useNavigate();
 
@@ -35,7 +34,7 @@ const Register = () => {
         if (!newUser) {
           alert('Invalid Registration');
         } else {
-          setNewToken(newUser.token);
+          setToken(newUser.token);
           localStorage.setItem('token', newUser.token);
           localStorage.setItem('username', newUser.username);
           navigate('/editprofile')
