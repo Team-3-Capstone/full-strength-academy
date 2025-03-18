@@ -6,21 +6,21 @@ import Exercises from './components/Exercises.jsx';
 import LogIn from './components/LogIn.jsx';
 import Logs from './components/Logs.jsx';
 import Meals from './components/Meals.jsx';
+import AddMealForm from './components/AddMealForm.jsx';
 import Profile from './components/Profile.jsx';
 import Register from './components/Register.jsx';
 import NavBar from './components/NavBar.jsx';
 import BmiCalculaltor from './components/features/BmiCalculator';
 
 const App = () => {
-  // Get token from localStorage, use empty string if token not available
+  const [meals, setMeals] = useState([]); // Meal state to pass down to AddMealForm
   const [token, setToken] = useState(localStorage.getItem('token') || '');
 
-  // Update our localStorage whenever the token changes
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token); // Save token to localStorage
+      localStorage.setItem('token', token);
     } else {
-      localStorage.removeItem('token'); // Remove token from localStorage
+      localStorage.removeItem('token');
     }
   }, [token]);
 
@@ -33,10 +33,11 @@ const App = () => {
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/login" element={<LogIn setToken={setToken} />} />
         <Route path="/logs" element={<Logs />} />
-        <Route path="/meals" element={<Meals />} />
+        <Route path="/meals" element={<Meals meals={meals} setMeals={setMeals} />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/bmi" element={<BmiCalculaltor />} />
+        <Route path="/add-meal" element={<AddMealForm setMeals={setMeals} />} />
       </Routes>
     </>
   );

@@ -1,15 +1,13 @@
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const Meals = () => {
-  const [meals, setMeals] = useState([]);
+const Meals = ({ meals, setMeals }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [selectedMealFocus, setSelectedMealFocus] = useState([]);
   const [selectedCalories, setSelectedCalories] = useState([]);
-
   const [mealFocusOptions, setMealFocusOptions] = useState([]);
-  const [calorieRanges, setCalorieRanges] = useState([100, 200, 300, 400, 500,]);
+  const [calorieRanges, setCalorieRanges] = useState([100, 200, 300, 400, 500]);
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -35,9 +33,9 @@ const Meals = () => {
     };
 
     fetchMeals();
-  }, []);
+  }, [setMeals]);
 
-  // When the filters are clicked functions
+  // Handle filter button clicks
   const handleFilterClick = (category, value) => {
     let newSelection;
     if (category === 'focus') {
@@ -53,7 +51,7 @@ const Meals = () => {
     }
   };
 
-  // Filter the meals based on the selected categories
+  // Filter the meals based on selected categories
   const filteredMeals = meals.filter((meal) =>
     (selectedMealFocus.length === 0 || selectedMealFocus.includes(meal.focus_goal)) &&
     (selectedCalories.length === 0 || selectedCalories.some(calorie => meal.calories <= calorie))
@@ -84,9 +82,17 @@ const Meals = () => {
     <main>
       <h2>All Meals</h2>
 
+      {/* Add "Add New Meal" button at the top */}
+      <section>
+        <Link to="/add-meal">
+          <button style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#4caf50', color: 'white', borderRadius: '5px', border: 'none' }}>
+            Add New Meal
+          </button>
+        </Link>
+      </section>
+
       <section>
         <h3>Filters</h3>
-
         <section>
           <h4>Meal Focus</h4>
           {mealFocusOptions.map((focus, index) => (
