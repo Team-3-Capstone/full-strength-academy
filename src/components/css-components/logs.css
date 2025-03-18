@@ -1,0 +1,128 @@
+.main-logs {
+  display: flex;
+  justify-content: space-between;
+padding-top: 50px;
+padding-right:20px;
+padding-left: 20px;
+}
+
+.main-logs > .search-section {
+  width: 50%;
+}
+
+.main-logs > .logs-section {
+  width: 50%;
+}
+
+.main-logs h1, .main-logs h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color:white;
+  padding: 20px;
+}
+
+.main-logs ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 300px; /* Limit the height to show only the first three items */
+  overflow-y: auto;  /* Enable vertical scroll */
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 5px; 
+}
+
+.main-logs li {
+  background-color:white;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.main-logs li button {
+  background-color: #ff4500; /* Use the given color */
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.main-logs li button:hover {
+  background-color: #cc3700; /* Slightly darker hover effect */
+}
+
+.main-logs div {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.main-logs label {
+  display: block;
+  font-size: 1rem;
+  color:white;
+  margin-bottom: 5px;
+}
+
+.main-logs input {
+  width: 60%;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius:5px;
+  margin:5px;
+
+}
+
+.main-logs input[type="number"] {
+  width: 30%;
+}
+
+.main-logs button {
+  background-color: #ff4500; /* Use the given color */
+  color: white;
+  border: none;
+  padding: 8px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.main-logs button:hover {
+  background-color: #cc3700; /* Darker hover color */
+}
+
+.main-logs ul li strong {
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* Adjusting sections for the left and right placement */
+.search-section {
+  margin-right: 20px; /* Add space between the search and logs sections */
+}
+
+.logs-section {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.add-new-logs{
+width: 400px;
+line-height: 20px;
+padding: 10px;
+background-color:#cc3700;
+margin: 20px;
+box-shadow:2px 2px 5px  5px rgb(30,0,0,30);
+
+}
+.logsandaddnewlogs{
+  padding:20px;
+}
