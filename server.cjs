@@ -30,11 +30,15 @@ app.post('/api/auth/register', async(req, res) => {
 //LOGIN EXISTING USER - PRODUCES A TOKEN UPON SUCCESSFUL LOGIN
 app.post('/api/auth/login', async(req, res) => {
   const { username, password } = req.body;
-  try {
-    const token = await authentication(username, password);
-    res.send({ username: `${username}`, token: `${token}` });
-  } catch(err) {
-    res.send({message: err.message});
+  const token = await authentication(username, password);
+  if(token) {
+    try {
+      res.send({ username: `${username}`, token: `${token}` });
+    } catch(err) {
+      res.send({message: err.message});
+    }
+  } else {
+    res.send({message: `Authentication error.`});
   }
 });
 
