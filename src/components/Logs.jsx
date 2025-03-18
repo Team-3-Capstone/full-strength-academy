@@ -78,7 +78,7 @@ const LogsComponent = () => {
       duration: '',
       date: new Date().toLocaleDateString(), // Set today's date
     });
-  };
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,7 +106,7 @@ const LogsComponent = () => {
   return (
     <main className="main-logs">
     <section className="foodandexercises">
-      <h1>Food Search:</h1>
+      <h1>Meal Search:</h1>
       <ul>
         {mealsArray.map((meal) => (
           <li key={meal.id}>
@@ -116,7 +116,7 @@ const LogsComponent = () => {
         ))}
       </ul>
   
-      <h1>Exercises Search:</h1>
+      <h1>Exercise Search:</h1>
       <ul>
         {exercisesArray.map((exercise) => (
           <li key={exercise.id}>
@@ -128,11 +128,11 @@ const LogsComponent = () => {
     </section>
   
     <section className="logsandaddnewlogs">
-      <h2>Logs List View:</h2>
+      <h2>Log History:</h2>
       <ul>
         {logs.map((log, index) => (
           <li key={index}>
-            <strong>Date:</strong> {log.date}, <strong>Food:</strong> {log.food}, <strong>Exercise:</strong> {log.exercise}, <strong>Sets:</strong> {log.setsCompleted}, <strong>Reps:</strong> {log.repsPerSet}, <strong>Weight:</strong> {log.weightUsed}kg, <strong>Duration:</strong> {log.duration} minutes
+            <strong>Date:</strong> {log.date} <strong>Meal:</strong> {log.food} <strong>Exercise:</strong> {log.exercise} <strong>Sets:</strong> {log.setsCompleted} <strong>Reps:</strong> {log.repsPerSet} <strong>Weight:</strong> {log.weightUsed}lbs <strong>Duration:</strong> {log.duration} minutes
           </li>
         ))}
       </ul>
@@ -140,7 +140,7 @@ const LogsComponent = () => {
       <h2>Add New Log</h2>
       <div>
         <label>
-          Food:
+          Meal:
           <input
             type="text"
             value={newLog.food}
@@ -180,7 +180,7 @@ const LogsComponent = () => {
       </div>
       <div>
         <label>
-          Weight Used (kg):
+          Weight Used (lbs):
           <input
             type="number"
             value={newLog.weightUsed}
