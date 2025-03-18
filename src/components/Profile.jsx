@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Profile = () => {
   const token = localStorage.getItem('token');
   const [userStats, setUserStats] = useState({});
   const [lastLog, setLastLog] = useState({});
+  // const [exerciseById, setExerciseById] = useState({});
+  // const [mealById, setMealById] = useState({});
+  // const {exerciseId} = useParams();
+  // const {mealId} = useParams();
 
   const fullName = userStats.fullName;
   const firstName = fullName?.split(' ')[0];
@@ -58,6 +62,24 @@ const Profile = () => {
     }
     getLastLog();
   }, []);
+
+  // useEffect(() => {
+  //   const getExerciseById = async() => {
+  //     const response = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${exerciseId}`);
+  //     const selectedExerciseObj = await response.json();
+  //     setExerciseById(selectedExerciseObj.name);
+  //   }
+  //   getExerciseById();
+  // }, []);
+
+  // useEffect(() => {
+  //   const getMealById = async() => {
+  //     const response = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${mealId}`);
+  //     const selectedMealObj = await response.json();
+  //     setMealById(selectedMealObj.name);
+  //   }
+  //   getMealById();
+  // }, []);
   
   return (
     <>
