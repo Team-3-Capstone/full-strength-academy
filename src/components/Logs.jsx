@@ -86,17 +86,10 @@ const LogsComponent = () => {
       })
     });
     fetchLogs();
-    // setNewLog({
-    // meal: '',
-    // mealId: '',
-    // exercise: '',
-    // exerciseId: '',
-    // setsCompleted: '',
-    // repsPerSet: '',
-    // weightUsed: '',
-    // duration: '',
-    // date: new Date().toLocaleDateString()
-    // });
+    setNewLog({ 
+      meal: '', mealId: '', exercise: '', exerciseId: '', setsCompleted: '',
+        repsPerSet: '', weightUsed: '', duration: '', date: new Date().toLocaleDateString()
+    });
   }
 
   useEffect(() => {
@@ -109,8 +102,7 @@ const LogsComponent = () => {
       } finally {
         setLoading(false);
       }
-    };
-
+    }
     fetchData();
   }, []);
 
@@ -169,7 +161,7 @@ const LogsComponent = () => {
           <input
             type="text"
             value={newLog.meal}
-            onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
+            onChange={(e) => setNewLog({  ...newLog, meal: e.target.value })}
           />
         </label>
       </div>
@@ -179,7 +171,7 @@ const LogsComponent = () => {
           <input
             type="text"
             value={newLog.exercise}
-            onChange={(e) => setNewLog({ ...newLog, exercise: e.target.value })}
+            onChange={(e) => setNewLog({  ...newLog, exercise: e.target.value })}
           />
         </label>
       </div>
@@ -189,7 +181,7 @@ const LogsComponent = () => {
           <input
             type="number"
             value={newLog.setsCompleted}
-            onChange={(e) => setNewLog({ ...newLog, setsCompleted: e.target.value })}
+            onChange={(e) => setNewLog({  ...newLog, setsCompleted: e.target.value })}
           />
         </label>
       </div>
@@ -199,7 +191,7 @@ const LogsComponent = () => {
           <input
             type="number"
             value={newLog.repsPerSet}
-            onChange={(e) => setNewLog({ ...newLog, repsPerSet: e.target.value })}
+            onChange={(e) => setNewLog({  ...newLog, repsPerSet: e.target.value })}
           />
         </label>
       </div>
@@ -209,7 +201,7 @@ const LogsComponent = () => {
           <input
             type="number"
             value={newLog.weightUsed}
-            onChange={(e) => setNewLog({ ...newLog, weightUsed: e.target.value })}
+            onChange={(e) => setNewLog({  ...newLog, weightUsed: e.target.value })}
           />
         </label>
       </div>
@@ -219,7 +211,7 @@ const LogsComponent = () => {
           <input
             type="number"
             value={newLog.duration}
-            onChange={(e) => setNewLog({ ...newLog, duration: e.target.value })}
+            onChange={(e) => setNewLog({  ...newLog, duration: e.target.value })}
           />
         </label>
       </div>
@@ -227,8 +219,7 @@ const LogsComponent = () => {
       </section>
     </section>
   </main>
-  
-  );
-};
+  )
+}
 
-export default LogsComponent;
+export default LogsComponent
