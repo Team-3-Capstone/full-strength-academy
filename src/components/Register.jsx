@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PasswordChecklist from "react-password-checklist";
 
 const Register = ({ setToken }) => {
   const [newUsername, setNewUsername] = useState('');
@@ -27,38 +28,41 @@ const Register = ({ setToken }) => {
     setLoading(true);
 
     try {
-  
-      const response = await fetch('https://full-strength-academy.onrender.com/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: newUsername,
-          password: newPassword1,
-          fullName: '',
-          height: 0,
-          weight: 0,
-          age: 0,
-          gender: ''
-        })
-      });
+      if (/\d/.test(newPassword1)) {
+        const response = await fetch('https://full-strength-academy.onrender.com/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: newUsername,
+            password: newPassword1,
+            fullName: '',
+            height: 0,
+            weight: 0,
+            age: 0,
+            gender: ''
+          })
+        });
 
-      const newUser = await response.json();
-      console.log(newUser);
+        const newUser = await response.json();
+        console.log(newUser);
 
-      if (newUser && newUser.token) {
-        // Set the token in the parent component (App.js) to update the navbar
-        setToken(newUser.token);
+        if (newUser && newUser.token) {
+          // Set the token in the parent component (App.js) to update the navbar
+          setToken(newUser.token);
 
-        // Save the token and username to localStorage 
-        localStorage.setItem('token', newUser.token);
-        localStorage.setItem('username', newUser.username);
+          // Save the token and username to localStorage 
+          localStorage.setItem('token', newUser.token);
+          localStorage.setItem('username', newUser.username);
 
-        // Navigate to the 'edit profile' page
-        navigate('/editprofile');
+          // Navigate to the 'edit profile' page
+          navigate('/editprofile');
+        } else {
+          alert('Invalid Registration');
+        }
       } else {
-        alert('Invalid Registration');
+        console.log('pw no check out');
       }
     } catch (err) {
       console.error(err);
@@ -82,17 +86,24 @@ const Register = ({ setToken }) => {
         <input
           type="password"
           placeholder="Enter password"
+          minLength="8"
           value={newPassword1}
           onChange={(event) => { setNewPassword1(event.target.value) }}
         />
         <input
           type="password"
           placeholder="Verify password"
+          minLength="8"
           value={newPassword2}
           onChange={(event) => { setNewPassword2(event.target.value) }}
         />
         <button type="submit" disabled={loading}>Create Account</button>
-        
+        <PasswordChecklist
+          rules={['number', 'match', 'minLength']}
+          minLength={8}
+          value={newPassword1}
+          valueAgain={newPassword2}
+      />
         {/* Display password match error */}
         {passwordMatchError && <p>{passwordMatchError}</p>}
         
