@@ -61,13 +61,15 @@ const Profile = () => {
         }
       });
       const allLogs = await logResponse.json();
-      setLastLog(allLogs[0]);
+      const mostRecentLogRefNum = allLogs.length-1;
+      const mostRecentLog = allLogs[mostRecentLogRefNum];
+      setLastLog(mostRecentLog);
 
-      const exerciseResponse = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${allLogs[0].exercise_id}`);
+      const exerciseResponse = await fetch(`https://full-strength-academy.onrender.com/api/exercises/id/${mostRecentLog.exercise_id}`);
       const lastExercise = await exerciseResponse.json();
       setLastLoggedExercise(lastExercise[0].name);
 
-      const mealResponse = await fetch(`https://full-strength-academy.onrender.com/api/meals/id/${allLogs[0].meal_id}`);
+      const mealResponse = await fetch(`https://full-strength-academy.onrender.com/api/meals/id/${mostRecentLog.meal_id}`);
       const lastMeal = await mealResponse.json();
       setLastLoggedMeal(lastMeal[0].name);
     }
@@ -79,69 +81,70 @@ const Profile = () => {
     <> {
       token && lastLog ?
         <>
-        <header>
-          <h2>Let's Get Better Today, {firstName}!</h2>
-        </header>
+          <header>
+            <h2>Let's Get Better Today, {firstName}!</h2>
+          </header>
   
-        <section>
-          <h3>{fullName}</h3>
-          <p>Height: {height}</p>
-          <p>Weight: {weight} lbs</p>
-          <p>Age: {age}</p>
-          <p>Gender: {gender}</p>
-          <button>
-            <Link to='/editprofile'>Edit My Info</Link>
-          </button>
-        </section>
+          <section>
+            <h3>{fullName}</h3>
+            <p>Height: {height}</p>
+            <p>Weight: {weight} lbs</p>
+            <p>Age: {age}</p>
+            <p>Gender: {gender}</p>
+            <button>
+              <Link to='/editprofile'>Edit My Info</Link>
+            </button>
+          </section>
   
-        <section>
-          <h3>Last Log Entry: {lastLogMonth}/{lastLogDay}/{lastLogYear}</h3>
-          <p>{lastLoggedMeal}</p>
-          <p>{lastLoggedExercise}</p>
-          <p>Reps Per Set: {lastExerciseRepsPerSet}</p>
-          <p>Sets: {lastExerciseSetsCompleted}</p>
-          <p>Duration: {lastExerciseDurationMinutes} minutes</p>
-          <p>Weight Used: {lastWeightUsed}</p>
-          <button>
-            <Link to='/logs'>Create a New Log</Link>
-          </button>
-        </section>
+          <section>
+            <h3>Last Log Entry: {lastLogMonth}/{lastLogDay}/{lastLogYear}</h3>
+            <p>{lastLoggedMeal}</p>
+            <p>{lastLoggedExercise}</p>
+            <p>Reps Per Set: {lastExerciseRepsPerSet}</p>
+            <p>Sets: {lastExerciseSetsCompleted}</p>
+            <p>Duration: {lastExerciseDurationMinutes} minutes</p>
+            <p>Weight Used: {lastWeightUsed}</p>
+            <button>
+              <Link to='/logs'>Create a New Log</Link>
+            </button>
+          </section>
       
-        <section>
-          <button>
-            <Link to='/add-meal'>Share a New Recipe with the Community</Link>
-          </button>
-        </section>
+          <section>
+            <button>
+              <Link to='/add-meal'>Share a New Recipe with the Community</Link>
+            </button>
+          </section>
   
-      </> : null}
+        </> : null }
 
-      {token && !lastLog ? 
+      { token && !lastLog ? 
         <>
-  
-        <header>
-          <h2>Let's Get Better Today, {firstName}!</h2>
-        </header>
-  
-        <section>
-          <h3>{fullName}</h3>
-          <p>Height: {height}</p>
-          <p>Weight: {weight} lbs</p>
-          <p>Age: {age}</p>
-          <p>Gender: {gender}</p>
-          <button>
-            <Link to='/editprofile'>Edit My Info</Link>
-          </button>
-          <button>
-            <Link to='/logs'>Create Your First Log</Link>
-          </button>
-          <button>
-            <Link to='/add-meal'>Share a New Recipe with the Community</Link>
-          </button>
-        </section>
-      </> : null}
+          <header>
+            <h2>Let's Get Better Today, {firstName}!</h2>
+          </header>
+    
+          <section>
+            <h3>{fullName}</h3>
+            <p>Height: {height}</p>
+            <p>Weight: {weight} lbs</p>
+            <p>Age: {age}</p>
+            <p>Gender: {gender}</p>
+            <button>
+              <Link to='/editprofile'>Edit My Info</Link>
+            </button>
+            <button>
+              <Link to='/logs'>Create Your First Log</Link>
+            </button>
+            <button>
+              <Link to='/add-meal'>Share a New Recipe with the Community</Link>
+            </button>
+          </section>
+        </> : null }
 
       { !token ? <><section><h2>Create an account to access this feature.</h2></section></> : null } 
-      </> ) }
+    </> 
+  ) 
+}
 
 
 export default Profile
