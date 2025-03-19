@@ -68,59 +68,23 @@ app.get('/api/auth/me', async(req, res) => {
     res.send({message: err.message});
   }
 });
-///// THIS IS THE 100% WORKING CODE: DO NOT DELETE:
+/// THIS IS THE 100% WORKING CODE: DO NOT DELETE:
 
 //EDIT USER DETAILS. REQUIRES ACCESS TOKEN TO EDIT INFORMATION.
-// app.put('/api/auth/me', async(req, res) => {
-//   const user = await verifyToken(req.headers.authorization);
-//   const { fullName, height, weight, age, gender } = req.body;
-//   try {
-//     if(user) {
-//       await editProfile(user.username, fullName, height, weight, age, gender);
-//       res.send({ username: `${user.username}`, fullName: `${fullName}`, height: `${height}`, weight: `${weight}`, age: `${age}`, gender: `${gender}` });
-//     } else {
-//       res.send({message: err.message});
-//     }
-//   } catch(err) {
-//     res.send({message: err.message});
-//   }
-// });
-
-//////// THIS IS MY NEW TEST CODE
-
-// EDIT USER DETAILS. REQUIRES ACCESS TOKEN TO EDIT INFORMATION.
 app.put('/api/auth/me', async(req, res) => {
   const user = await verifyToken(req.headers.authorization);
   const { fullName, height, weight, age, gender } = req.body;
-
-  // Validate if the user is authenticated
-  if (!user) {
-    return res.status(401).send({message: 'Unauthorized - Invalid Token or User not found'});
-  }
-
   try {
-    // Only update fields that are provided (not undefined or empty)
-    if (fullName) await editProfile(user.username, 'fullName', fullName);
-    if (height) await editProfile(user.username, 'height', height);
-    if (weight) await editProfile(user.username, 'weight', weight);
-    if (age) await editProfile(user.username, 'age', age);
-    if (gender) await editProfile(user.username, 'gender', gender);
-
-    // Respond with the updated profile
-    res.send({
-      username: user.username,
-      fullName: fullName || user.fullName,
-      height: height || user.height,
-      weight: weight || user.weight,
-      age: age || user.age,
-      gender: gender || user.gender
-    });
-  } catch (err) {
-    res.status(500).send({message: 'Error updating profile: ' + err.message});
+    if(user) {
+      await editProfile(user.username, fullName, height, weight, age, gender);
+      res.send({ username: `${user.username}`, fullName: `${fullName}`, height: `${height}`, weight: `${weight}`, age: `${age}`, gender: `${gender}` });
+    } else {
+      res.send({message: err.message});
+    }
+  } catch(err) {
+    res.send({message: err.message});
   }
 });
-
-//////////////////// END TEST CODE
 
 
 //GET ALL LOGS (TOTAL HISTORY) CREATED BY USER. REQUIRES ACCESS TOKEN TO VIEW INFORMATION.
