@@ -1,5 +1,3 @@
-import React from 'react';
-
 const LearnMore = () => {
   return (
     <>
@@ -99,3 +97,4 @@ const LearnMore = () => {
 };
 
 export default LearnMore;
+
