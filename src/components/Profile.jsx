@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './css-components/profile.css'
 
 const Profile = () => {
   const token = localStorage.getItem('token');
@@ -78,14 +79,14 @@ const Profile = () => {
   
   
   return (
-    <> {
+    <div className='container-profile'> {
       token && lastLog ?
         <>
           <header>
             <h2>Let's Get Better Today, {firstName}!</h2>
           </header>
-  
-          <section>
+        
+          <section className='profile-live-details'>
             <h3>{fullName}</h3>
             <p>Height: {height}</p>
             <p>Weight: {weight} lbs</p>
@@ -95,8 +96,9 @@ const Profile = () => {
               <Link to='/editprofile'>Edit My Info</Link>
             </button>
           </section>
-  
-          <section>
+            <hr />
+            <br />
+          <section className='profile-live-details'>
             <h3>Last Log Entry: {lastLogMonth}/{lastLogDay}/{lastLogYear}</h3>
             <p>{lastLoggedMeal}</p>
             <p>{lastLoggedExercise}</p>
@@ -105,13 +107,13 @@ const Profile = () => {
             <p>Duration: {lastExerciseDurationMinutes} minutes</p>
             <p>Weight Used: {lastWeightUsed}</p>
             <button>
-              <Link to='/logs'>Create a New Log</Link>
+              <Link className={"link-styles"} to='/logs'>Create a New Log</Link>
             </button>
           </section>
       
           <section>
             <button>
-              <Link to='/add-meal'>Share a New Recipe with the Community</Link>
+              <Link className={"link-styles"} to='/add-meal'>Share a New Recipe with the Community</Link>
             </button>
           </section>
   
@@ -123,26 +125,26 @@ const Profile = () => {
             <h2>Let's Get Better Today, {firstName}!</h2>
           </header>
     
-          <section>
+          <section className='profile-details'>
             <h3>{fullName}</h3>
             <p>Height: {height}</p>
             <p>Weight: {weight} lbs</p>
             <p>Age: {age}</p>
             <p>Gender: {gender}</p>
             <button>
-              <Link to='/editprofile'>Edit My Info</Link>
+              <Link className={"link-styles"} to='/editprofile'>Edit My Info</Link>
             </button>
             <button>
-              <Link to='/logs'>Create Your First Log</Link>
+              <Link className={"link-styles"} to='/logs'>Create Your First Log</Link>
             </button>
             <button>
-              <Link to='/add-meal'>Share a New Recipe with the Community</Link>
+              <Link className={"link-styles"} to='/add-meal'>Share a New Recipe with the Community</Link>
             </button>
           </section>
         </> : null }
 
       { !token ? <><section><h2>Create an account to access this feature.</h2></section></> : null } 
-    </> 
+    </div> 
   ) 
 }
 

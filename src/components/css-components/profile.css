@@ -1,0 +1,58 @@
+.container-profile {
+  place-self: center;
+  background-color: white;
+  color: black;
+  margin-top: 100px;
+  padding:50px;
+  box-shadow:2px 2px 5px  5px rgb(30,0,0,30);
+
+}
+.container-profile h2{
+  place-self: center;
+}
+
+.profile-details p {
+  place-self: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  justify-self:first baseline;
+  margin-left:200px;
+  
+  
+}
+
+.container-profile button  {
+margin: 20px;
+border: 300px;
+}
+
+
+.profile-live-details p {
+  margin-top: 10px;
+  margin-left:20px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.container-profile button a {
+  background-color: #ff3e00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.96rem;
+}
+
+.container-profile button .link-styles {
+  list-style: none;
+  text-decoration: none;
+  color: white;    
+}
+
+
+
+.link-styles:hover {
+  background-color: #cc3600fa;
+}
