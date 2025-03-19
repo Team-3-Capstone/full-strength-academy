@@ -88,37 +88,37 @@ app.get('/api/auth/me', async(req, res) => {
 
 //////// THIS IS MY NEW TEST CODE
 
-// EDIT USER DETAILS. REQUIRES ACCESS TOKEN TO EDIT INFORMATION.
-app.put('/api/auth/me', async(req, res) => {
-  const user = await verifyToken(req.headers.authorization);
-  const { fullName, height, weight, age, gender } = req.body;
 
-  // Validate if the user is authenticated
-  if (!user) {
-    return res.status(401).send({message: 'Unauthorized - Invalid Token or User not found'});
-  }
+const verifyToken = require('./middlewares/verifyToken'); // Import the token verification middleware
+
+app.use(express.json());
+
+// Protected route: PUT /api/auth/me
+app.put('/api/auth/me', verifyToken, async (req, res) => {
+  const { fullName, height, weight, age, gender } = req.body;
+  const user = req.user;  // User info is attached to req.user from the token
 
   try {
-    // Only update fields that are provided (not undefined or empty)
+    // Update the user profile logic goes here
     if (fullName) await editProfile(user.username, 'fullName', fullName);
     if (height) await editProfile(user.username, 'height', height);
     if (weight) await editProfile(user.username, 'weight', weight);
     if (age) await editProfile(user.username, 'age', age);
     if (gender) await editProfile(user.username, 'gender', gender);
 
-    // Respond with the updated profile
-    res.send({
+    res.json({
       username: user.username,
       fullName: fullName || user.fullName,
       height: height || user.height,
       weight: weight || user.weight,
       age: age || user.age,
-      gender: gender || user.gender
+      gender: gender || user.gender,
     });
   } catch (err) {
-    res.status(500).send({message: 'Error updating profile: ' + err.message});
+    res.status(500).json({ message: 'Error updating profile: ' + err.message });
   }
 });
+
 
 //////////////////// END TEST CODE
 

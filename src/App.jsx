@@ -30,7 +30,7 @@ const App = () => {
       <NavBar token={token} setToken={setToken} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/editprofile" element={<EditProfile />} />
+        <Route path="/editprofile" element={<EditProfile token={localStorage.getItem('token')} />} />
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/login" element={<LogIn setToken={setToken} />} />
         <Route path="/logs" element={<Logs />} />
