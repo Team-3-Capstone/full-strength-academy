@@ -35,7 +35,7 @@ const Home = () => {
                   <div className="plans">
                     <img src={gymImage2} alt="Membership couples-gym" />
                     <p><strong>Custom Meal Plans</strong></p>
-                    <Link to="/">
+                    <Link to="/learn-more">
                     <button className="btn">Learn More</button>
                     </Link>
                   </div>
@@ -43,7 +43,7 @@ const Home = () => {
                   <div className="plans">
                     <img src={gymImage} alt="Membership couples-gym" />
                     <p><strong>Custom Exersise Plans</strong></p>
-                    <Link to="/">
+                    <Link to="/learn-more">
                     <button className="btn">Learn More</button>
                     </Link>
                     
@@ -52,7 +52,7 @@ const Home = () => {
                   <div className="plans">
                     <img src={gymImage3} alt="Membership couples-gym" />
                     <p><strong>Custom Workout Tracking</strong></p>
-                    <Link to="/">
+                    <Link to="/learn-more">
                     <button className="btn">Learn More</button>
                     </Link>
                   </div>
