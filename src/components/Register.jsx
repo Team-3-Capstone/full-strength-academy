@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
+import './css-components/register.css';
 
 const Register = ({ setToken }) => {
   const [newUsername, setNewUsername] = useState('');
@@ -75,8 +76,9 @@ const Register = ({ setToken }) => {
 
   return (
     <>
-      <h2>Register for an account!</h2>
+    <main className="main-register">
       <form onSubmit={addNewUser}>
+      <h2>Register for an account!</h2>
         <input
           type="text"
           placeholder="Username"
@@ -110,6 +112,7 @@ const Register = ({ setToken }) => {
         {/* Display loading message */}
         {loading && <p>Loading...</p>}
       </form>
+      </main>
     </>
   );
 };
