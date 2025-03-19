@@ -5,7 +5,7 @@ const AddMealForm = ({ setMeals }) => {
     name: '',
     focus_goal: '',
     calories: '',
-    username: localStorage.getItem('username') || '', //pre-fill username from localStorage
+    username: localStorage.getItem('username') || '', // pre-fill username from localStorage
   });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -50,6 +50,7 @@ const AddMealForm = ({ setMeals }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation check
     if (!newMeal.name || !newMeal.focus_goal || !newMeal.calories) {
       setError('All fields are required.');
       return;
@@ -59,12 +60,18 @@ const AddMealForm = ({ setMeals }) => {
     setSuccessMessage('');
 
     try {
+      // API call to create a new meal
       const response = await fetch('https://full-strength-academy.onrender.com/api/meals', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newMeal),
+        body: JSON.stringify({
+          mealName: newMeal.name,
+          mealFocus: newMeal.focus_goal,
+          mealCalories: parseInt(newMeal.calories, 10), // Ensure calories are an integer
+          postedByUsername: newMeal.username,
+        }),
       });
 
       if (!response.ok) {
@@ -76,7 +83,7 @@ const AddMealForm = ({ setMeals }) => {
       // Update the meal list by calling setMeals
       setMeals((prevMeals) => [...prevMeals, createdMeal]);
 
-      // display success message and then clear the form
+      // Display success message and clear the form
       setSuccessMessage('New meal added successfully!');
       setNewMeal({
         name: '',
@@ -84,7 +91,6 @@ const AddMealForm = ({ setMeals }) => {
         calories: '',
         username: localStorage.getItem('username') || '',
       });
-
     } catch (err) {
       setError(err.message);
     }
