@@ -6,7 +6,7 @@ const LogsComponent = () => {
   const [exercisesArray, setExercisesArray] = useState([]);
   const [logs, setLogs] = useState([]);
   const [newLog, setNewLog] = useState({
-    food: '',
+    meal: '',
     mealId: '',
     exercise: '',
     exerciseId: '',
@@ -14,7 +14,7 @@ const LogsComponent = () => {
     repsPerSet: '',
     weightUsed: '',
     duration: '',
-    date: new Date().toLocaleDateString(),
+    date: new Date().toLocaleDateString()
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -73,7 +73,7 @@ const LogsComponent = () => {
       method: 'POST',
       headers: {
         "Authorization": `${localStorage.getItem('token')}`,
-        "Content-Type": "application/json"          
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         exercise_id: newLog.exerciseId,
@@ -85,20 +85,18 @@ const LogsComponent = () => {
         date: newLog.date
       })
     });
-    }
-
-  // Add new log
-  const handleAddLog = (e) => {
-    setLogs((prevLogs) => [...prevLogs, newLog]); // Append the new log to logs array
-    setNewLog({
-      food: '',
-      exercise: '',
-      setsCompleted: '',
-      repsPerSet: '',
-      weightUsed: '',
-      duration: '',
-      date: new Date().toLocaleDateString(), // Set today's date
-    });
+    fetchLogs();
+    // setNewLog({
+    // meal: '',
+    // mealId: '',
+    // exercise: '',
+    // exerciseId: '',
+    // setsCompleted: '',
+    // repsPerSet: '',
+    // weightUsed: '',
+    // duration: '',
+    // date: new Date().toLocaleDateString()
+    // });
   }
 
   useEffect(() => {
@@ -116,11 +114,6 @@ const LogsComponent = () => {
     fetchData();
   }, []);
 
-  const handleAndPost = async(e) => {
-    handleAddLog();
-    postLogs();
-  }
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -134,20 +127,20 @@ const LogsComponent = () => {
     <section className="foodandexercises">
       <h1>Meal Search:</h1>
       <ul>
-        {mealsArray.map((meal) => (
-          <li key={meal.id}>
-            {meal.name}
-            <button onClick={() => setNewLog({ ...newLog, food: meal.name, mealId: meal.id })}>Add</button>
+        {mealsArray.map((individualMeal) => (
+          <li key={individualMeal.id}>
+            {individualMeal.name}
+            <button onClick={() => setNewLog({ ...newLog, meal: individualMeal.name, mealId: individualMeal.id })}>Add</button>
           </li>
         ))}
       </ul>
   
       <h1>Exercise Search:</h1>
       <ul>
-        {exercisesArray.map((exercise) => (
-          <li key={exercise.id}>
-            {exercise.name}
-            <button onClick={() => setNewLog({ ...newLog, exercise: exercise.name, exerciseId: exercise.id })}>Add</button>
+        {exercisesArray.map((individualExercise) => (
+          <li key={individualExercise.id}>
+            {individualExercise.name}
+            <button onClick={() => setNewLog({ ...newLog, exercise: individualExercise.name, exerciseId: individualExercise.id })}>Add</button>
           </li>
         ))}
       </ul>
@@ -156,9 +149,15 @@ const LogsComponent = () => {
     <section className="logsandaddnewlogs">
       <h2>Log History:</h2>
       <ul>
-        {logs.map((log, index) => (
-          <li key={index}>
-            <strong>Date:</strong> {log.date} <strong>Meal:</strong> {log.food} <strong>Exercise:</strong> {log.exercise} <strong>Sets:</strong> {log.setsCompleted} <strong>Reps:</strong> {log.repsPerSet} <strong>Weight:</strong> {log.weightUsed}lbs <strong>Duration:</strong> {log.duration} minutes
+        {logs.map((log) => (
+          <li key={log.id}>
+            <strong>Date:</strong> {log.date}
+            <strong>Meal:</strong> {mealsArray[log.meal_id-1].name}
+            <strong>Exercise:</strong> {exercisesArray[log.exercise_id-1].name}
+            <strong>Sets:</strong> {log.sets_completed}
+            <strong>Reps:</strong> {log.reps_per_set}
+            <strong>Weight:</strong> {log.weight_used}lbs
+            <strong>Duration:</strong> {log.duration_minutes} minutes
           </li>
         ))}
       </ul>
@@ -169,8 +168,8 @@ const LogsComponent = () => {
           Meal:
           <input
             type="text"
-            value={newLog.food}
-            onChange={(e) => setNewLog({ ...newLog, food: e.target.value })}
+            value={newLog.meal}
+            onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
           />
         </label>
       </div>
@@ -224,7 +223,7 @@ const LogsComponent = () => {
           />
         </label>
       </div>
-      <button onClick={handleAndPost}>Add Log</button>
+      <button onClick={postLogs}>Add Log</button>
       </section>
     </section>
   </main>
