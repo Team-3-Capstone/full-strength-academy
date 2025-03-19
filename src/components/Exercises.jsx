@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './css-components/exercises.css'
 
 const Exercises = () => {
   const [exercises, setExercises] = useState([]);
@@ -71,14 +72,14 @@ const Exercises = () => {
 
   // Adding some Inline styling for buttons on this page only 
   const getButtonStyle = (selected) => ({
-    backgroundColor: selected ? '#4caf50' : '#f0f0f0',
+    backgroundColor: selected ? '#ff4500' : '#f0f0f0',
     borderColor: selected ? '#45a049' : '#ccc',
     color: selected ? 'white' : 'black',
-    padding: '8px 16px',
+    padding: '6px 20px',
     margin: '4px',
-    fontSize: '14px',
+    fontSize: '10px',
     cursor: 'pointer',
-    borderRadius: '5px',
+    borderRadius: '3px',
     transition: 'all 0.3s ease', // I'm playing with mild CSS now that Engle has inspired me! This is the time it takes for the button to change color!
   });
 
@@ -98,14 +99,13 @@ const Exercises = () => {
   }
 
   return (
-    <main>
-      <h2>All Exercises</h2>
-
+    <main className='main-exercise'>
+      <h1>All Exercises</h1>
       <section>
-        <h3>Filters</h3>
-
+        <h2>Filters</h2>
+        <hr />
         <section>
-          <h4>Muscle Group</h4>
+          <h2>Muscle Group</h2>
           {muscleGroups.map((muscle, index) => (
             <button
               key={index}
@@ -118,7 +118,7 @@ const Exercises = () => {
         </section>
 
         <section>
-          <h4>Difficulty</h4>
+          <h2>Difficulty</h2>
           {difficultyLevels.map((difficulty, index) => (
             <button
               key={index}
@@ -131,7 +131,7 @@ const Exercises = () => {
         </section>
 
         <section>
-          <h4>Type</h4>
+          <h2>Type</h2>
           {exerciseTypes.map((type, index) => (
             <button
               key={index}
@@ -156,6 +156,7 @@ const Exercises = () => {
             {filteredExercises.map((exercise) => (
               <article key={exercise.id}>
                 <h3>{exercise.name}</h3>
+                <hr />
                 <p><strong>Difficulty:</strong> {exercise.difficulty}</p>
                 <p><strong>Muscle Group:</strong> {exercise.muscle_groups.join(', ')}</p>
                 <p><strong>Type:</strong> {exercise.type}</p>
