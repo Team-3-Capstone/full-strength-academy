@@ -7,7 +7,9 @@ const LogsComponent = () => {
   const [logs, setLogs] = useState([]);
   const [newLog, setNewLog] = useState({
     food: '',
+    mealId: '',
     exercise: '',
+    exerciseId: '',
     setsCompleted: '',
     repsPerSet: '',
     weightUsed: '',
@@ -66,8 +68,27 @@ const LogsComponent = () => {
     }
   };
 
+  const postLogs = async (e) => {
+    const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me/logs', {
+      method: 'POST',
+      headers: {
+        "Authorization": `${localStorage.getItem('token')}`,
+        "Content-Type": "application/json"          
+      },
+      body: JSON.stringify({
+        exercise_id: newLog.exerciseId,
+        meal_id: newLog.mealId,
+        sets_completed: newLog.setsCompleted,
+        reps_per_set: newLog.repsPerSet,
+        weight_used: newLog.weightUsed,
+        duration_minutes: newLog.duration,
+        date: newLog.date
+      })
+    });
+    }
+
   // Add new log
-  const handleAddLog = () => {
+  const handleAddLog = (e) => {
     setLogs((prevLogs) => [...prevLogs, newLog]); // Append the new log to logs array
     setNewLog({
       food: '',
@@ -95,6 +116,11 @@ const LogsComponent = () => {
     fetchData();
   }, []);
 
+  const handleAndPost = async(e) => {
+    handleAddLog();
+    postLogs();
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -111,7 +137,7 @@ const LogsComponent = () => {
         {mealsArray.map((meal) => (
           <li key={meal.id}>
             {meal.name}
-            <button onClick={() => setNewLog({ ...newLog, food: meal.name })}>Add</button>
+            <button onClick={() => setNewLog({ ...newLog, food: meal.name, mealId: meal.id })}>Add</button>
           </li>
         ))}
       </ul>
@@ -121,7 +147,7 @@ const LogsComponent = () => {
         {exercisesArray.map((exercise) => (
           <li key={exercise.id}>
             {exercise.name}
-            <button onClick={() => setNewLog({ ...newLog, exercise: exercise.name })}>Add</button>
+            <button onClick={() => setNewLog({ ...newLog, exercise: exercise.name, exerciseId: exercise.id })}>Add</button>
           </li>
         ))}
       </ul>
@@ -198,7 +224,7 @@ const LogsComponent = () => {
           />
         </label>
       </div>
-      <button onClick={handleAddLog}>Add Log</button>
+      <button onClick={handleAndPost}>Add Log</button>
       </section>
     </section>
   </main>
