@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css-components/logs.css'
 
 const LogsComponent = () => {
@@ -18,6 +19,7 @@ const LogsComponent = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // Fetch Meals
   const fetchMeals = async () => {
@@ -107,11 +109,11 @@ const LogsComponent = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error}</div>
   }
 
   return (
@@ -119,6 +121,11 @@ const LogsComponent = () => {
     <section className="foodandexercises">
       <h1>Meal Search:</h1>
       <ul>
+        <li>Missing Your Meal?
+          <button onClick={() => navigate('/add-meal')}>
+            Add A New Meal
+          </button>
+        </li>
         {mealsArray.map((individualMeal) => (
           <li key={individualMeal.id}>
             {individualMeal.name}
