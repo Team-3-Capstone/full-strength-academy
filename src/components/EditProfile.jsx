@@ -2,19 +2,24 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
-  const [ newFullName, setNewFullName ] = useState('');
-  const [ newHeight, setNewHeight ] = useState('');
-  const [ newWeight, setNewWeight ] = useState('');
-  const [ newAge, setNewAge ] = useState('');
-  const [ newGender, setNewGender ] = useState('');
+  const [newFullName, setNewFullName] = useState('');
+  const [newFeetHeight, setNewFeetHeight] = useState('');
+  const [newInchesHeight, setNewInchesHeight] = useState('');
+  const [newWeight, setNewWeight] = useState('');
+  const [newAge, setNewAge] = useState('');
+  const [newGender, setNewGender] = useState('');
 
   const getToken = localStorage.getItem('token');
   const getUsername = localStorage.getItem('username');
 
   const navigate = useNavigate();
+
+  
   
   const editUserProfile = async(event) => {
     event.preventDefault();
+    
+    const newTotalHeightInInches = Number((newFeetHeight * 12)) + Number(newInchesHeight);
 
     try {
       const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me', {
@@ -25,7 +30,7 @@ const EditProfile = () => {
         },
         body: JSON.stringify({
           fullName: newFullName,
-          height: newHeight,
+          height: newTotalHeightInInches,
           weight: newWeight,
           age: newAge,
           gender: newGender
@@ -47,11 +52,36 @@ const EditProfile = () => {
             <h2>Edit My Profile!</h2>
             <h3>Welcome: {getUsername}</h3>
             <form onSubmit={ editUserProfile }>
-              <input placeholder="full name" onChange={(event) => {setNewFullName(event.target.value)}} value={ newFullName } />
-              <input placeholder="height in inches" type="number" onChange={(event) => {setNewHeight(event.target.value)}} value={ newHeight } />
-              <input placeholder="weight in pounds" type="number" onChange={(event) => {setNewWeight(event.target.value)}} value={ newWeight } />
-              <input placeholder="age" type="number" onChange={(event) => {setNewAge(event.target.value)}} value={ newAge } />
-              <input placeholder="gender" onChange={(event) => {setNewGender(event.target.value)}} valur={ newGender }/>
+              <input 
+                placeholder="full name" 
+                onChange={(event) => {setNewFullName(event.target.value)}} 
+                value={ newFullName } 
+              />
+              <input 
+                placeholder="height in feet" 
+                onChange={(event) => {setNewFeetHeight(event.target.value)}} 
+                value={ newFeetHeight } 
+              />
+              <input 
+                placeholder="height in inches" 
+                type="number" 
+                onChange={(event) => {setNewInchesHeight(event.target.value)}} 
+                value={ newInchesHeight } 
+              />
+              <input 
+                placeholder="weight in pounds" 
+                type="number" 
+                onChange={(event) => {setNewWeight(event.target.value)}} 
+                value={ newWeight } />
+              <input 
+                placeholder="age" 
+                type="number" 
+                onChange={(event) => {setNewAge(event.target.value)}} 
+                value={ newAge } />
+              <input 
+                placeholder="gender" 
+                onChange={(event) => {setNewGender(event.target.value)}} 
+                value={ newGender }/>
               <button>Update Profile</button>
             </form>
           </section>
