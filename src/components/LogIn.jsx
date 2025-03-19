@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import './css-components/login.css'
 const LogIn = ({ setToken }) => {
   const [inputUsername, setInputUsername] = useState('');
   const [inputPassword, setInputPassword] = useState('');
@@ -41,8 +41,10 @@ const LogIn = ({ setToken }) => {
 
   return (
     <>
-      <h2>Log into my account!</h2>
+    <main className="main-login">
+      
       <form onSubmit={loggingIn}>
+      <h2>Log into my account!</h2>
         <input placeholder='username' onChange={(event) => { setInputUsername(event.target.value) }} />
         <input placeholder='password' type='password' onChange={(event) => { setInputPassword(event.target.value) }} />
         <button>Login</button>
@@ -50,6 +52,7 @@ const LogIn = ({ setToken }) => {
           badLogin ? <p>Invalid Login Attempt, Try Again</p> : null
         }
       </form>
+      </main>
     </>
   );
 };
