@@ -109,8 +109,11 @@ const Exercises = () => {
   }
 
   return (
+    <>
+       <center> <h1>All Exercises</h1></center>
+
     <main className='main-exercise'>
-      <h1>All Exercises</h1>
+  
       <section>
         <h2>Filters</h2>
         <hr />
@@ -178,6 +181,7 @@ const Exercises = () => {
         )}
       </section>
     </main>
+    </>
   );
 };
 
