@@ -51,9 +51,10 @@ const EditProfile = () => {
     <>
       {
         getToken ?
+        
           <section className="edit-profile">
-            <h1>Welcome: {getUsername}</h1>
             <form onSubmit={ editUserProfile }>
+             <h1>Welcome: {getUsername}</h1>
             <h2>Edit My Profile!</h2>
               <input 
                 placeholder="full name" 
