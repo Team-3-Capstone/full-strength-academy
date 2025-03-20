@@ -160,6 +160,9 @@ const LogsComponent = () => {
   const otherMeals = mealsArray.filter(meal => meal.name !== 'N/A');
   const sortedMeals = otherMeals.sort((a, b) => a.name.localeCompare(b.name));
 
+  // Alphabetize the exercises
+  const sortedExercises = exercisesArray.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <main className="main-logs">
       <section className="foodandexercises">
@@ -198,7 +201,8 @@ const LogsComponent = () => {
 
         <h1>Exercise Search:</h1>
         <ul>
-          {exercisesArray.map((individualExercise) => (
+          {/* Alphabetize and display the exercises */}
+          {sortedExercises.map((individualExercise) => (
             <li key={individualExercise.id}>
               {individualExercise.name}
               <button
