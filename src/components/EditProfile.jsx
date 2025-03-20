@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './css-components/edit-profile.css'
 
 const EditProfile = () => {
@@ -90,8 +91,8 @@ const EditProfile = () => {
             </form>
           </section>
         :
-          <h2>Must Be Logged In To View This Page</h2>
-    }
+          <h2>Please <Link to='/login'>login</Link> to view this page.</h2>
+     }
     </>
   )
 }

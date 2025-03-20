@@ -10,6 +10,8 @@ const Meals = ({ meals, setMeals }) => {
   const [mealFocusOptions, setMealFocusOptions] = useState([]);
   const [calorieRanges, setCalorieRanges] = useState([100, 200, 300, 400, 500]);
 
+  const getToken = localStorage.getItem('token');
+
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -81,75 +83,82 @@ const Meals = ({ meals, setMeals }) => {
 
   return (
     <>
-        <center><h2>All Meals</h2></center>  
-    <main className='main-meals'>
-      
+      {
+        getToken ?
+          <>
+            <center><h2>All Meals</h2></center>  
+          <main className='main-meals'>
+          
 
-      
+          
 
-      {/* Add "Add New Meal" button at the top */}  
+          {/* Add "Add New Meal" button at the top */}  
 
+          <section>
+            <h4>Filters</h4>
+            <hr />
+            <section>
+              <h4>Meal Focus</h4>
+              {mealFocusOptions.map((focus, index) => (
+                <button
+                  key={index}
+                  style={getButtonStyle(selectedMealFocus.includes(focus))}
+                  onClick={() => handleFilterClick('focus', focus)}
+                >
+                  {focus.charAt(0).toUpperCase() + focus.slice(1)}
+                </button>
+              ))}
+            </section>
+
+            <section>
+              <h4>Calories</h4>
+              {calorieRanges.map((calorie, index) => (
+                <button
+                  key={index}
+                  style={getButtonStyle(selectedCalories.includes(calorie))}
+                  onClick={() => handleFilterClick('calories', calorie)}
+                >
+                  {'>'}{calorie} Cal
+                </button>
+              ))}
+            </section>
       <section>
-        <h4>Filters</h4>
-        <hr />
-        <section>
-          <h4>Meal Focus</h4>
-          {mealFocusOptions.map((focus, index) => (
-            <button
-              key={index}
-              style={getButtonStyle(selectedMealFocus.includes(focus))}
-              onClick={() => handleFilterClick('focus', focus)}
-            >
-              {focus.charAt(0).toUpperCase() + focus.slice(1)}
-            </button>
-          ))}
+          
+          </section>
+            <button onClick={() => {
+              setSelectedMealFocus([]);
+              setSelectedCalories([]);
+            }}>Clear Filters</button>
+            <br />
+
+              <Link to="/add-meal">
+              <button style={{ padding: '10px 30px', fontSize: '16px', backgroundColor: '#ff4500', color: 'white', borderRadius: '5px', border: 'none' }}>
+                Add New Meal
+              </button>
+            </Link>
+          </section>
+
+          <section>
+            {filteredMeals.length > 0 ? (
+              <ul>
+                {filteredMeals.map((meal) => (
+                  <article key={meal.id}>
+                    <h3>{meal.name}</h3>
+                    <p><strong>Focus Goal:</strong> {meal.focus_goal}</p>
+                    <p><strong>Calories:</strong> {meal.calories}</p>
+                    <p><strong>Posted By:</strong> {meal.username}</p>
+                  </article>
+                ))}
+              </ul>
+            ) : (
+              <p>No meals found with these filters.</p>
+          )}
         </section>
-
-        <section>
-          <h4>Calories</h4>
-          {calorieRanges.map((calorie, index) => (
-            <button
-              key={index}
-              style={getButtonStyle(selectedCalories.includes(calorie))}
-              onClick={() => handleFilterClick('calories', calorie)}
-            >
-              {'>'}{calorie} Cal
-            </button>
-          ))}
-        </section>
-  <section>
-       
-      </section>
-        <button onClick={() => {
-          setSelectedMealFocus([]);
-          setSelectedCalories([]);
-        }}>Clear Filters</button>
-        <br />
-
-          <Link to="/add-meal">
-          <button style={{ padding: '10px 30px', fontSize: '16px', backgroundColor: '#ff4500', color: 'white', borderRadius: '5px', border: 'none' }}>
-            Add New Meal
-          </button>
-        </Link>
-      </section>
-
-      <section>
-        {filteredMeals.length > 0 ? (
-          <ul>
-            {filteredMeals.map((meal) => (
-              <article key={meal.id}>
-                <h3>{meal.name}</h3>
-                <p><strong>Focus Goal:</strong> {meal.focus_goal}</p>
-                <p><strong>Calories:</strong> {meal.calories}</p>
-                <p><strong>Posted By:</strong> {meal.username}</p>
-              </article>
-            ))}
-          </ul>
-        ) : (
-          <p>No meals found with these filters.</p>
-        )}
-      </section>
-    </main>
+      </main>
+      </>
+    :
+    <h2>Please <Link to='/login'>login</Link> to view this page.</h2>
+    }
     </>
   );
 };
