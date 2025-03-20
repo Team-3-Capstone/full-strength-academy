@@ -155,6 +155,11 @@ const LogsComponent = () => {
     return <div>{error}</div>;
   }
 
+  // Separate "N/A" meal and sort the rest alphabetically
+  const mealsWithNA = mealsArray.filter(meal => meal.name === 'N/A');
+  const otherMeals = mealsArray.filter(meal => meal.name !== 'N/A');
+  const sortedMeals = otherMeals.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <main className="main-logs">
       <section className="foodandexercises">
@@ -166,19 +171,29 @@ const LogsComponent = () => {
             <button onClick={() => navigate('/add-meal')}>Add A New Meal</button>
           </li>
 
+          {/* "N/A" Meal always stays first under the button */}
+          {mealsWithNA.length > 0 && (
+            <li key="na-meal">
+              N/A
+              <button
+                onClick={() => setNewLog({ ...newLog, meal: 'N/A', mealId: 'N/A' })}
+              >
+                Add
+              </button>
+            </li>
+          )}
+
           {/* Alphabetize the rest of the meals */}
-          {mealsArray
-            .sort((a, b) => a.name.localeCompare(b.name)) // Sorting meals alphabetically
-            .map((individualMeal) => (
-              <li key={individualMeal.id}>
-                {individualMeal.name}
-                <button
-                  onClick={() => setNewLog({ ...newLog, meal: individualMeal.name, mealId: individualMeal.id })}
-                >
-                  Add
-                </button>
-              </li>
-            ))}
+          {sortedMeals.map((individualMeal) => (
+            <li key={individualMeal.id}>
+              {individualMeal.name}
+              <button
+                onClick={() => setNewLog({ ...newLog, meal: individualMeal.name, mealId: individualMeal.id })}
+              >
+                Add
+              </button>
+            </li>
+          ))}
         </ul>
 
         <h1>Exercise Search:</h1>
