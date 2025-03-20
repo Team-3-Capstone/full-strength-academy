@@ -3,19 +3,14 @@
   margin-top: 40px;
   line-height:40px;  /* Corrected 'PX' to 'px' */
   gap: 100px;
+  place-self:center;
 }
 
 .main-meals h1 {
 place-content: center;
-margin: 30px;
   
 }
-.main-meals h2 {
-  position:relative;
-  font-size: 3rem;
-  line-height:40px;
-  
-}
+
 
 .main-meals h3 {
 background-color:rgb(255, 60, 0);
@@ -60,5 +55,12 @@ line-height: 60px;
   flex-direction: column;
   max-width: 400px;
   min-width: 400px;
+  
+}
+
+.main-meals h2 {
+  font-size: 3rem;
+  line-height:40px;
+  margin-bottom: 200px;
   
 }

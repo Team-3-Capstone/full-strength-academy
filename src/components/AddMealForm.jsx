@@ -104,8 +104,7 @@ const AddMealForm = ({ setMeals }) => {
   return (
     <section className='add-meals'>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+     
 
       <form onSubmit={handleSubmit}>
       <h1>Add New Meal</h1>
@@ -161,6 +160,8 @@ const AddMealForm = ({ setMeals }) => {
             disabled
           />
         </label>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
         <br />
 
         <button type="submit">Add Meal</button>
