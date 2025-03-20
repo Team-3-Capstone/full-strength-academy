@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const token = localStorage.getItem('token');
+
   return (
     <>
       <main>
@@ -15,20 +17,24 @@ const Home = () => {
                 you are looking to build muscle, lose fat, or enhance athletic performance, 
                 this is the tool you need to succeed.
               </p>
-              <Link to="/register">
-                <button className="btn">Get Started Today!</button>
-              </Link>
+
+              { !token ? 
+                ( <Link to="/register"><button className="btn">Get Started Today!</button></Link> ) 
+                : 
+                ( <Link to="/profile"><button className="btn">Continue On Your Journey</button></Link> )
+              }
+
             </div>
           </section>
 
           <footer className="footer">
-            <Link to="learn-more">Take a Look Behind the Scenes</Link>
-            | &copy; Full Strength Academy, 2025 | All-Star Team | Joe Callahan | Brianna Stephens | Engel Noel Berihuete | Shaun Newman
+            &copy; Full Strength Academy, 2025 | All-Star Team | Joe Callahan | Brianna Stephens | Engel Noel Berihuete | Shaun Newman |
+              <Link to="learn-more">Take a Look Behind the Scenes</Link>
           </footer>
         </section>
       </main>
     </>
-  );
+  )
 }
 
 export default Home;
