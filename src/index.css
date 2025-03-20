@@ -8,7 +8,7 @@
 /* Body and Main Theme */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #222;
+  background-color: #1f1e1e;
   color: #fff;
   line-height: 1.6;
 }
@@ -23,13 +23,14 @@ h2{
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #333;
+  background-color: #000000;
 }
 
 .navbar .brand {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #ff3e00;
   font-weight: bold;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .nav-links {
@@ -44,7 +45,8 @@ h2{
 .nav-links a {
   color: #fff;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .nav-links a:hover {
@@ -56,25 +58,24 @@ h2{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-image: url('./components/img/Home-img-couples.png');
+  background-image: url('./components/img/weightsaesthetic.jpg');
   background-size: cover;
   background-position: center;
   height: 80vh;
   text-align: center;
   padding: 0 50px;
-
 }
 
 .hero-content {
   max-width: 600px;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
 }
 
 .hero h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
   color: #fff;
 }
 
@@ -138,7 +139,7 @@ h2{
 }
 
 .footer {
-  background-color: #333;
+  background-color: #000000;
   color: #fff;
   text-align: center;
   padding: 20px 0;
@@ -147,13 +148,14 @@ h2{
 .footer a {
   color: #fff;
   margin: 0 10px;
-  font-size: 1.5rem;
+  font-size: 1 rem;
   text-decoration: none;
 }
 
 .footer a:hover {
   color: #ff3e00;
 }
+
 .about-section {
   padding: 50px;
   background-color:black;
@@ -216,19 +218,16 @@ list-style: none;
 }
 
 .team-card {
-
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 185px;
   text-align: center;
-  
 }
 
 .team-card h3 {
   margin-bottom: 10px;
   font-size: 1.5em;
-  
 }
 
 .team-card p {
