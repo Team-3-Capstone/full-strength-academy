@@ -69,17 +69,8 @@ const LogsComponent = () => {
       if (!newLog.exerciseId || !newLog.mealId) {
         throw new Error(`Exercise & meal selections are required.`);
       }
-      if (!newLog.setsCompleted) {
-        setNewLog({  ...newLog, setsCompleted: 0 });
-      }
-      if (!newLog.repsPerSet) {
-        setNewLog({  ...newLog, repsPerSet: 0 });
-      }
-      if (!newLog.weightUsed) {
-        setNewLog({  ...newLog, weightUsed: 0 });
-      }
-      if (!newLog.duration) {
-        setNewLog({  ...newLog, duration: 0 });
+      if (!newLog.setsCompleted || !newLog.repsPerSet || !newLog.weightUsed || !newLog.duration) {
+        throw new Error(`Please complete all fields. Enter 0 (zero) in empty fields.`);
       }
     } catch(err) {
       setInputError(err.message);
