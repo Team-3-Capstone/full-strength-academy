@@ -105,6 +105,7 @@ const syncAndSeed = async() => {
   await createExercise(`Single Leg Deadlift`, `hard`, `{back, hamstrings, glutes, legs}`, `strength`);
   await createExercise(`Split Squat`, `medium`, `{back, hamstrings, glutes, legs}`, `strength`);
   
+  await createMeal(`N/A`, `N/A`, 0, `admin`);
   await createMeal(`Zoodle Soup`, `lowcal`, 100, `yoganstuff`);
   await createMeal(`Citrus Couscous Salad w/ Pistachios`, `lowcal`, 95, `yoganstuff`);
   await createMeal(`Creamy Cucumber Salad`, `lowcal`, 90, `BalancedBody`);
