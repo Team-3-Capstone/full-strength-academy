@@ -3,6 +3,7 @@
   margin-top: 40px;
   line-height: 20px; /* Corrected 'PX' to 'px' */
   gap: 20px;
+  place-self: center;
 }
 .main-exercise h1 {
 place-content: center;
