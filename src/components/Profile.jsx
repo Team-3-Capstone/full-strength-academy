@@ -143,7 +143,7 @@ const Profile = () => {
           </section>
         </> : null }
 
-      { !token ? <><section><h2>Create an account to access this feature.</h2></section></> : null } 
+      { !token ? <><section><h2>Please <Link to='/login'>login</Link> to view this page</h2></section></> : null } 
     </div> 
   ) 
 }

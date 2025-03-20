@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './css-components/exercises.css';
 
 const Exercises = () => {
@@ -13,6 +14,8 @@ const Exercises = () => {
   const [muscleGroups, setMuscleGroups] = useState([]);
   const [difficultyLevels, setDifficultyLevels] = useState([]);
   const [exerciseTypes, setExerciseTypes] = useState([]);
+
+  const getToken = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -110,6 +113,8 @@ const Exercises = () => {
 
   return (
     <>
+    { getToken ?
+    <>
        <center> <h1>All Exercises</h1></center>
 
     <main className='main-exercise'>
@@ -181,7 +186,11 @@ const Exercises = () => {
         )}
       </section>
     </main>
-    </>
+    </> 
+    :
+    <h2>Please <Link to='/login'>login</Link> to view this page</h2>
+      }
+      </>
   );
 };
 
