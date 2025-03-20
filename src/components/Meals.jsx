@@ -80,8 +80,12 @@ const Meals = ({ meals, setMeals }) => {
   }
 
   return (
+    <>
+        <center><h2>All Meals</h2></center>  
     <main className='main-meals'>
-      <h2>All Meals</h2>
+      
+
+      
 
       {/* Add "Add New Meal" button at the top */}  
 
@@ -114,16 +118,19 @@ const Meals = ({ meals, setMeals }) => {
           ))}
         </section>
   <section>
-        <Link to="/add-meal">
-          <button style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#4caf50', color: 'white', borderRadius: '5px', border: 'none' }}>
-            Add New Meal
-          </button>
-        </Link>
+       
       </section>
         <button onClick={() => {
           setSelectedMealFocus([]);
           setSelectedCalories([]);
         }}>Clear Filters</button>
+        <br />
+
+          <Link to="/add-meal">
+          <button style={{ padding: '10px 30px', fontSize: '16px', backgroundColor: '#ff4500', color: 'white', borderRadius: '5px', border: 'none' }}>
+            Add New Meal
+          </button>
+        </Link>
       </section>
 
       <section>
@@ -143,6 +150,7 @@ const Meals = ({ meals, setMeals }) => {
         )}
       </section>
     </main>
+    </>
   );
 };
 
