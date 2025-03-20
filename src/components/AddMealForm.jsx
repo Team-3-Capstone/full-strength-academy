@@ -26,7 +26,7 @@ const AddMealForm = ({ setMeals }) => {
         // get the focus goals from the fetched meal data
         const focusGoals = new Set();
         data.forEach(meal => {
-          focusGoals.add(meal.focus_goal);
+          if(meal.focus_goal !== 'N/A') { focusGoals.add(meal.focus_goal); }
         });
 
         setFocusGoalOptions([...focusGoals]); // Set the focus goals in state
