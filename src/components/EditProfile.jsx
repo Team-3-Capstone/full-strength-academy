@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import './css-components/edit-profile.css'
 
 const EditProfile = () => {
   const [newFullName, setNewFullName] = useState('');
@@ -50,10 +51,10 @@ const EditProfile = () => {
     <>
       {
         getToken ?
-          <section>
-            <h2>Edit My Profile!</h2>
-            <h3>Welcome: {getUsername}</h3>
+          <section className="edit-profile">
+            <h1>Welcome: {getUsername}</h1>
             <form onSubmit={ editUserProfile }>
+            <h2>Edit My Profile!</h2>
               <input 
                 placeholder="full name" 
                 onChange={(event) => {setNewFullName(event.target.value)}} 
