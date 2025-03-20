@@ -236,7 +236,7 @@ app.get('/api/meals/id/:id', async(req, res) => {
 //GET ALL MEALS BY FOCUS GOAL
 app.get("/api/meals/focusgoal/:focusgoal", async (req, res) => {
   const selectedFocusGoal = req.params.focusgoal;
-  const selectedMeals = await client.query(`SELECT * FROM meals WHERE focus_goal='${selectedFocusGoal}' AND focus_goal <> N/A`);
+  const selectedMeals = await client.query(`SELECT * FROM meals WHERE focus_goal='${selectedFocusGoal}'`);
   try {
     res.send(selectedMeals.rows);
   } catch(err) {
