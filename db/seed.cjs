@@ -118,7 +118,7 @@ const syncAndSeed = async() => {
   await createMeal(`One Egg Ham Omelette`, `protein`, 97, `SourdoughSam`);
   await createMeal(`Avocado Toast`, `lowcal`, 180, `BalancedBody`);
   await createMeal(`Broccoli Salad`, `lowcal`, 120, `BalancedBody`);
-  await createMeal(`1 Cup Edamame`, `lowcal`, 180, `fullstrengthstrong`);
+  await createMeal(`Edamame (1 cup)`, `lowcal`, 180, `fullstrengthstrong`);
   await createMeal(`English Muffin w/ Cream Cheese`, `lowcal`, 155, `BalancedBody`);
   await createMeal(`English Muffin Mini Pizza`, `lowcal`, 150, `SourdoughSam`);
   await createMeal(`Quest Blueberry Protein Bar`, `protein`, 180, `fullstrengthstrong`);
