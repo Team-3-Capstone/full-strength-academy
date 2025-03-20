@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './css-components/exercises.css'
+import './css-components/exercises.css';
 
 const Exercises = () => {
   const [exercises, setExercises] = useState([]);
@@ -16,7 +16,7 @@ const Exercises = () => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      let url = 'https://full-strength-academy.onrender.com/api/exercises'; // Initial URL to get all exercises - 'let' because the URL needs to be able to update as we change the filters to match the server routes.
+      let url = 'https://full-strength-academy.onrender.com/api/exercises'; // Initial URL to get all exercises
 
       try {
         const response = await fetch(url);
@@ -36,9 +36,16 @@ const Exercises = () => {
           types.add(exercise.type);
         });
 
-        setMuscleGroups([...muscles]);
-        setDifficultyLevels([...difficulties]);
-        setExerciseTypes([...types]);
+        // Sort muscle groups and exercise types alphabetically
+        setMuscleGroups([...muscles].sort());
+        setExerciseTypes([...types].sort());
+
+        // Sort difficulty levels in the custom order (easy, medium, hard)
+        setDifficultyLevels([...difficulties].sort((a, b) => {
+          const order = ['easy', 'medium', 'hard'];
+          return order.indexOf(a.toLowerCase()) - order.indexOf(b.toLowerCase());
+        }));
+
       } catch (err) {
         setError(err.message);
       } finally {
@@ -70,7 +77,7 @@ const Exercises = () => {
     }
   };
 
-  // Adding some Inline styling for buttons on this page only 
+  // Adding some Inline styling for buttons on this page only
   const getButtonStyle = (selected) => ({
     backgroundColor: selected ? '#ff4500' : '#f0f0f0',
     borderColor: selected ? '#45a049' : '#ccc',
@@ -80,7 +87,7 @@ const Exercises = () => {
     fontSize: '10px',
     cursor: 'pointer',
     borderRadius: '3px',
-    transition: 'all 0.3s ease', // I'm playing with mild CSS now that Engle has inspired me! This is the time it takes for the button to change color!
+    transition: 'all 0.3s ease',
   });
 
   // Filter the exercises based on the selected categories
@@ -89,6 +96,9 @@ const Exercises = () => {
     (selectedDifficulties.length === 0 || selectedDifficulties.includes(exercise.difficulty)) &&
     (selectedTypes.length === 0 || selectedTypes.includes(exercise.type))
   );
+
+  // Sort the filtered exercises alphabetically by name
+  const sortedExercises = filteredExercises.sort((a, b) => a.name.localeCompare(b.name));
 
   if (loading) {
     return <div>Loading...</div>;
@@ -151,9 +161,9 @@ const Exercises = () => {
       </section>
 
       <section>
-        {filteredExercises.length > 0 ? (
+        {sortedExercises.length > 0 ? (
           <ul>
-            {filteredExercises.map((exercise) => (
+            {sortedExercises.map((exercise) => (
               <article key={exercise.id}>
                 <h3>{exercise.name}</h3>
                 <hr />
