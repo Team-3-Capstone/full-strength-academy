@@ -18,6 +18,7 @@ const Meals = ({ meals, setMeals }) => {
           throw new Error('Failed to fetch meals');
         }
         const data = await response.json();
+        data.shift(); //removes 'N/A' (first seeded item) from display.
         setMeals(data);
 
         const focusGoals = new Set();
@@ -57,6 +58,8 @@ const Meals = ({ meals, setMeals }) => {
     (selectedMealFocus.length === 0 || selectedMealFocus.includes(meal.focus_goal)) &&
     (selectedCalories.length === 0 || selectedCalories.some(calorie => meal.calories <= calorie))
   );
+
+  const sortedMeals = filteredMeals.sort((a, b) => a.name.localeCompare(b.name));
 
   // Button style inline for the selections
   const getButtonStyle = (selected) => ({
@@ -136,7 +139,7 @@ const Meals = ({ meals, setMeals }) => {
       <section>
         {filteredMeals.length > 0 ? (
           <ul>
-            {filteredMeals.map((meal) => (
+            {sortedMeals.map((meal) => (
               <article key={meal.id}>
                 <h3>{meal.name}</h3>
                 <p><strong>Focus Goal:</strong> {meal.focus_goal}</p>
