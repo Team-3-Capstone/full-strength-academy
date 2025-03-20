@@ -49,8 +49,8 @@ const LogsComponent = () => {
       const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me/logs', {
         method: 'GET',
         headers: {
-          Authorization: `${localStorage.getItem('token')}`, // Pass the token from localStorage
-        },
+          Authorization: `${localStorage.getItem('token')}`
+        }
       });
 
       if (!response.ok) {
@@ -58,7 +58,7 @@ const LogsComponent = () => {
       }
 
       const data = await response.json();
-      setLogs(data); // Update logs with fetched data
+      setLogs(data);
     } catch (err) {
       setError(err.message);
     }
@@ -70,7 +70,7 @@ const LogsComponent = () => {
         throw new Error(`Exercise & meal selections are required.`);
       }
       if (!newLog.setsCompleted || !newLog.repsPerSet || !newLog.weightUsed || !newLog.duration) {
-        throw new Error(`Please complete all fields. Enter 0 (zero) in empty fields.`);
+        throw new Error(`Please complete all fields. Enter 0 (zero) in empty fields.`); 
       }
     } catch(err) {
       setInputError(err.message);
@@ -116,6 +116,24 @@ const LogsComponent = () => {
     fetchData();
   }, []);
 
+  let logYear = '';
+  let logMonth = '';
+  let logDay = '';
+
+  const decipherDate = (eachLog) => {
+    const gibberishDate = eachLog.date;
+    const dateArr = gibberishDate?.split('-');
+  
+    if(dateArr) {
+      logYear = dateArr[0];
+      logMonth = dateArr[1];
+      logDay = dateArr[2].slice(0,2);
+    }
+
+    return `${logMonth}/${logDay}/${logYear}`;
+  }
+  
+
   if (loading) {
     return <div>Loading...</div>
   }
@@ -158,7 +176,7 @@ const LogsComponent = () => {
       <ul>
         {logs.map((log) => (
           <li key={log.id}>
-            <strong>Date:</strong> {log.date}
+            <strong>Date:</strong> {decipherDate(log)}
             <strong>Meal:</strong> {mealsArray[log.meal_id-1].name}
             <strong>Exercise:</strong> {exercisesArray[log.exercise_id-1].name}
             <strong>Sets:</strong> {log.sets_completed}
