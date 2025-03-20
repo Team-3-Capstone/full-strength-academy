@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import roundLogo from './img/round-logo.ico';
 
 const NavBar = ({ token, setToken }) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const NavBar = ({ token, setToken }) => {
 
   return (
     <header className="navbar">
-      <div className="brand">FULL STRENGTH ACADEMY</div>
+      <Link to="/"><div className="brand">FULL STRENGTH ACADEMY</div></Link>
       <nav>
         <ul className="nav-links">
           {/* Home link is always visible */}
