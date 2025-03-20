@@ -24,7 +24,6 @@ const LogIn = ({ setToken }) => {
       });
 
       const userLogin = await response.json();
-      console.log(userLogin);
 
       if (userLogin.message === 'Authentication error.') {
         setBadLogin('Invalid login attempt');
