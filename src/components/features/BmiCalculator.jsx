@@ -57,7 +57,7 @@ export const Bmi = () => {
   );
 
   useEffect(() => {
-    if (bmi) {
+    if (bmi && category) {
       const ctx = chartRef.current.getContext('2d');
       const chart = new Chart(ctx, {
         type: 'line',
@@ -90,12 +90,13 @@ export const Bmi = () => {
         },
       });
 
+      // Make sure not to recreate the chart unless necessary
       return () => {
-        chart.destroy();
+        chart.destroy(); // Clean up the chart when the component is unmounted or chart data changes
       };
     }
-  },
-    [bmi, category]);
+  }, [bmi, category]); // Only re-render chart when bmi or category change
+
   useEffect(() => {
     const categoryMealMap = {
       'Underweight': { meal: 'protein', workout: 'strength' },
@@ -118,11 +119,9 @@ export const Bmi = () => {
           }
 
           const data = await mealResponse.json();
-          // Filter meal data based on the goal (e.g., 'protein' or 'lowcal')
           const filteredMeals = data.filter(item => item.focus_goal === mealGoal);
 
           if (filteredMeals.length > 0) {
-            // Pick a random meal from the filtered list
             const randomIndex = Math.floor(Math.random() * filteredMeals.length);
             const randomMeal = filteredMeals[randomIndex];
             setMeal(randomMeal);
@@ -146,7 +145,6 @@ export const Bmi = () => {
 
           const data = await workoutResponse.json();
           if (data.length > 0) {
-            // Get a random workout from the array
             const randomIndex = Math.floor(Math.random() * data.length);
             const randomWorkout = data[randomIndex];
             setWorkoutData(randomWorkout);
@@ -160,12 +158,10 @@ export const Bmi = () => {
         }
       };
 
-
       fetchMealData();
       fetchWorkoutData();
     }
   }, [category]);
-
 
   const getColorByCategory = (category) => {
     const colorMap = {
@@ -178,7 +174,6 @@ export const Bmi = () => {
     };
     return colorMap[category] || '#000000';
   };
-
 
   return (
     <main id="bmi-chart-component">
@@ -236,7 +231,7 @@ const listMuscleGroup = (workout) => {
         {workout.muscle_groups.map((muscle, index) => <li key={index}>{muscle}</li>)}
       </ul>
     </div>
-  </>
+  </>;
 }
 
 export default Bmi;
