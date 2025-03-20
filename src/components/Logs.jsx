@@ -6,19 +6,13 @@ const LogsComponent = () => {
   const [mealsArray, setMealsArray] = useState([]);
   const [exercisesArray, setExercisesArray] = useState([]);
   const [logs, setLogs] = useState([]);
-  const [newLog, setNewLog] = useState({
-    meal: '',
-    mealId: '',
-    exercise: '',
-    exerciseId: '',
-    setsCompleted: '',
-    repsPerSet: '',
-    weightUsed: '',
-    duration: '',
+  const [newLog, setNewLog] = useState({ meal: '', mealId: '', exercise: '', exerciseId: '',
+    setsCompleted: '', repsPerSet: '', weightUsed: '', duration: '',
     date: new Date().toLocaleDateString()
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [inputError, setInputError] = useState('');
   const navigate = useNavigate();
 
   // Fetch Meals
@@ -33,7 +27,7 @@ const LogsComponent = () => {
     } catch (err) {
       setError(err.message);
     }
-  };
+  }
 
   // Fetch Exercises
   const fetchExercises = async () => {
@@ -47,7 +41,7 @@ const LogsComponent = () => {
     } catch (err) {
       setError(err.message);
     }
-  };
+  }
 
   // Fetch Logs
   const fetchLogs = async () => {
@@ -68,9 +62,32 @@ const LogsComponent = () => {
     } catch (err) {
       setError(err.message);
     }
-  };
+  }
+
+  const inputCheck = () => {
+    try {
+      if (!newLog.exerciseId || !newLog.mealId) {
+        throw new Error(`Exercise & meal selections are required.`);
+      }
+      if (!newLog.setsCompleted) {
+        setNewLog({  ...newLog, setsCompleted: 0 });
+      }
+      if (!newLog.repsPerSet) {
+        setNewLog({  ...newLog, repsPerSet: 0 });
+      }
+      if (!newLog.weightUsed) {
+        setNewLog({  ...newLog, weightUsed: 0 });
+      }
+      if (!newLog.duration) {
+        setNewLog({  ...newLog, duration: 0 });
+      }
+    } catch(err) {
+      setInputError(err.message);
+    }
+  }
 
   const postLogs = async (e) => {
+    inputCheck();
     const response = await fetch('https://full-strength-academy.onrender.com/api/auth/me/logs', {
       method: 'POST',
       headers: {
@@ -88,7 +105,7 @@ const LogsComponent = () => {
       })
     });
     fetchLogs();
-    setNewLog({ 
+    setNewLog({
       meal: '', mealId: '', exercise: '', exerciseId: '', setsCompleted: '',
         repsPerSet: '', weightUsed: '', duration: '', date: new Date().toLocaleDateString()
     });
@@ -113,7 +130,7 @@ const LogsComponent = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>{error}</div>
   }
 
   return (
@@ -223,6 +240,7 @@ const LogsComponent = () => {
         </label>
       </div>
       <button onClick={postLogs}>Add Log</button>
+      {inputError && <p>{inputError}</p>}
       </section>
     </section>
   </main>
