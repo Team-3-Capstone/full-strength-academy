@@ -117,9 +117,7 @@ const Exercises = () => {
         getToken ?
       <>
        <center> <h1>All Exercises</h1></center>
-
     <main className='main-exercise'>
-  
       <section>
         <h2>Filters</h2>
         <hr />
