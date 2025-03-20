@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './css-components/add-meals.css'
 
 const AddMealForm = ({ setMeals }) => {
   const [newMeal, setNewMeal] = useState({
@@ -101,13 +102,13 @@ const AddMealForm = ({ setMeals }) => {
   }
 
   return (
-    <section>
-      <h3>Add New Meal</h3>
+    <section className='add-meals'>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
       <form onSubmit={handleSubmit}>
+      <h1>Add New Meal</h1>
         <label>
           Meal Name:
           <input
