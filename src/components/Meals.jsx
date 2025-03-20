@@ -10,6 +10,8 @@ const Meals = ({ meals, setMeals }) => {
   const [mealFocusOptions, setMealFocusOptions] = useState([]);
   const [calorieRanges, setCalorieRanges] = useState([100, 200, 300, 400, 500]);
 
+  const getToken = localStorage.getItem('token');
+
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -84,6 +86,8 @@ const Meals = ({ meals, setMeals }) => {
 
   return (
     <>
+    { getToken ?
+    <>
         <center><h2>All Meals</h2></center>  
     <main className='main-meals'>
       
@@ -153,6 +157,10 @@ const Meals = ({ meals, setMeals }) => {
         )}
       </section>
     </main>
+    </>
+    :
+    <h2>Please <Link to='/login'>login</Link> to view this page</h2>
+  }
     </>
   );
 };
