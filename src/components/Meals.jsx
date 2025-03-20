@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import './css-components/meals.css';
 
 const Meals = ({ meals, setMeals }) => {
   const [loading, setLoading] = useState(true);
@@ -59,7 +60,7 @@ const Meals = ({ meals, setMeals }) => {
 
   // Button style inline for the selections
   const getButtonStyle = (selected) => ({
-    backgroundColor: selected ? '#4caf50' : '#f0f0f0',
+    backgroundColor: selected ?' #ff4500' : '#f0f0f0',
     borderColor: selected ? '#45a049' : '#ccc',
     color: selected ? 'white' : 'black',
     padding: '8px 16px',
@@ -79,20 +80,14 @@ const Meals = ({ meals, setMeals }) => {
   }
 
   return (
-    <main>
+    <main className='main-meals'>
       <h2>All Meals</h2>
 
-      {/* Add "Add New Meal" button at the top */}
-      <section>
-        <Link to="/add-meal">
-          <button style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#4caf50', color: 'white', borderRadius: '5px', border: 'none' }}>
-            Add New Meal
-          </button>
-        </Link>
-      </section>
+      {/* Add "Add New Meal" button at the top */}  
 
       <section>
-        <h3>Filters</h3>
+        <h4>Filters</h4>
+        <hr />
         <section>
           <h4>Meal Focus</h4>
           {mealFocusOptions.map((focus, index) => (
@@ -118,7 +113,13 @@ const Meals = ({ meals, setMeals }) => {
             </button>
           ))}
         </section>
-
+  <section>
+        <Link to="/add-meal">
+          <button style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#4caf50', color: 'white', borderRadius: '5px', border: 'none' }}>
+            Add New Meal
+          </button>
+        </Link>
+      </section>
         <button onClick={() => {
           setSelectedMealFocus([]);
           setSelectedCalories([]);
