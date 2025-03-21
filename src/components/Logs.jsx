@@ -222,42 +222,42 @@ const LogsComponent = () => {
             <div id="log-form-inputs">
               <p><strong>What Did You Eat Today?</strong></p>
               <input
-                placeholder="What Did You Eat Today?"
+                placeholder="Choose an option on the left"
                 type="text"
                 value={newLog.meal}
                 onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
               />
               <p><strong>What Did You Train Today?</strong></p>
               <input
-                placeholder="What Did You Train Today?"
+                placeholder="Choose an option on the left"
                 type="text"
                 value={newLog.exercise}
                 onChange={(e) => setNewLog({ ...newLog, exercise: e.target.value })}
               />
               <p><strong>How Many Sets Did You Do?</strong></p>
               <input
-                placeholder="How Many Sets Did You Do?"
+                placeholder="If none, insert '0'"
                 type="number"
                 value={newLog.setsCompleted}
                 onChange={(e) => setNewLog({ ...newLog, setsCompleted: e.target.value })}
               />
               <p><strong>How Many Reps In Each Set?</strong></p>
               <input
-                placeholder="How Many Reps In Each Set?"
+                placeholder="If none, insert '0'"
                 type="number"
                 value={newLog.repsPerSet}
                 onChange={(e) => setNewLog({ ...newLog, repsPerSet: e.target.value })}
               />
               <p><strong>How Much Weight (in pounds)?</strong></p>
               <input
-                placeholder="How Much Weight?"
+                placeholder="If none, insert '0'"
                 type="number"
                 value={newLog.weightUsed}
                 onChange={(e) => setNewLog({ ...newLog, weightUsed: e.target.value })}
               />
               <p><strong>How Long (in minutes)?</strong></p>
               <input
-                placeholder="How Long (In Minutes)?"
+                placeholder="If none, insert '0'"
                 type="number"
                 value={newLog.duration}
                 onChange={(e) => setNewLog({ ...newLog, duration: e.target.value })}
@@ -271,11 +271,11 @@ const LogsComponent = () => {
       <section className="log-history">
         <h2>Your Journey: A Comprehensive History</h2>
         <ul>
-          {logs.map((log) => (
+          {logs.slice().reverse().map((log) => (
             <li key={log.id}>
               <strong>Date:</strong> {decipherDate(log)}
-              <strong>Meal:</strong> {mealsArray[log.meal_id - 1].name}
-              <strong>Exercise:</strong> {exercisesArray[log.exercise_id - 1].name}
+              <strong>Meal:</strong> {mealsArray.find(meal => meal.id === log.meal_id)?.name || "Meal not found"}
+              <strong>Exercise:</strong> {exercisesArray.find(exercise => exercise.id === log.exercise_id)?.name || "Exercise not found"}
               <strong>Sets:</strong> {log.sets_completed}
               <strong>Reps:</strong> {log.reps_per_set}
               <strong>Weight:</strong> {log.weight_used}lbs
@@ -289,3 +289,8 @@ const LogsComponent = () => {
 };
 
 export default LogsComponent;
+
+
+// {console.log(log.exercise_id)}
+//               {console.log(log)}
+//               {console.log(exercisesArray)}
