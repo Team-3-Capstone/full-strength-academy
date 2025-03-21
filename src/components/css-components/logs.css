@@ -82,9 +82,6 @@
   font-size: 0.9rem;
   border-radius: 5px;
   cursor: pointer;
-  border-color: black;
-  border-width: 2px;
-  border-style: outset;
 }
 
 .main-logs button:hover {
@@ -107,7 +104,7 @@
   line-height: 1vh;
   padding: 1vw;
   background-color: #ffffff;
-  border-radius: 3%;
+  border-radius: 10px;
 }
 
 .log-history {
@@ -116,7 +113,7 @@
   line-height: 1vh;
   padding: 1vw;
   background-color: #ffffff;
-  border-radius: 3%;
+  border-radius: 10px;
   width: 90vw;
   align-items: center;
 }
