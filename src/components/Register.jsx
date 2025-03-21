@@ -47,7 +47,6 @@ const Register = ({ setToken }) => {
         });
 
         const newUser = await response.json();
-        console.log(newUser);
 
         if (newUser && newUser.token) {
           // Set the token in the parent component (App.js) to update the navbar
