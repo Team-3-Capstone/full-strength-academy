@@ -12,6 +12,7 @@ import Register from './components/Register.jsx';
 import NavBar from './components/NavBar.jsx';
 import BmiCalculaltor from './components/features/BmiCalculator';
 import LearnMore from './components/LearnMore.jsx';
+import  SmartBrain from '../src/components/SmartBrain.jsx';
 
 const App = () => {
   const [meals, setMeals] = useState([]); // Meal state to pass down to AddMealForm
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/bmi" element={<BmiCalculaltor />} />
         <Route path="/add-meal" element={<AddMealForm setMeals={setMeals} />} />
         <Route path="/learn-more" element={<LearnMore />} />
+        <Route path="/smartbrain" element={<SmartBrain />} />
       </Routes>
     </>
   );
