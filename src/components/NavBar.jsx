@@ -24,7 +24,7 @@ const NavBar = ({ token, setToken }) => {
             <Link to="/">Home</Link>
           </li>|
 
-          { !token ? (
+          {!token ? (
             <>
               <li>
                 <Link to="/login">Log In</Link>
@@ -37,6 +37,9 @@ const NavBar = ({ token, setToken }) => {
             <>
               <li>
                 <Link to="/bmi">Check My BMI</Link>
+              </li>|
+              <li>
+                <Link to="/smartbrain">Smart Brain App</Link>
               </li>|
               <li>
                 <Link to="/meals">Meals</Link>
