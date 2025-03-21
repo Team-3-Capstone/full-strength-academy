@@ -18,8 +18,10 @@
   font-size: 20px;
   justify-self:first baseline;
   margin-left:200px;
-  
-  
+}
+
+.profile-and-log-container {
+  display: flex;
 }
 
 .container-profile button  {
@@ -29,10 +31,19 @@ border: 300px;
 
 
 .profile-live-details p {
-  margin-top: 10px;
-  margin-left:20px;
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-top: 1px;
+  margin-left: 20px;
+  margin-bottom: 2px;
+  padding: 5px;
+  padding-right: 20px;
+}
+
+strong {
+  color: #ff3e00;
+}
+
+h3 {
+  text-align: center;
 }
 
 .container-profile button a {
@@ -51,8 +62,11 @@ border: 300px;
   color: white;    
 }
 
-
-
 .link-styles:hover {
   background-color: #cc3600fa;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
 }

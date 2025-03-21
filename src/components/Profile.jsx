@@ -82,39 +82,38 @@ const Profile = () => {
     <div className='container-profile'> {
       token && lastLog ?
         <>
-          <header>
-            <h2>Let's Get Better Today, {firstName}!</h2>
-          </header>
-        
-          <section className='profile-live-details'>
-            <h3>{fullName}</h3>
-            <p>Height: {height}</p>
-            <p>Weight: {weight} lbs</p>
-            <p>Age: {age}</p>
-            <p>Gender: {gender}</p>
+          <h2>Let's crush the day, {firstName}!</h2>
+          <div className='profile-and-log-container'>
+            <section className='profile-live-details'>
+              <h3>{fullName}</h3>
+              <p><strong>Height:</strong> {height}</p>
+              <p><strong>Weight:</strong> {weight} lbs</p>
+              <p><strong>Age:</strong> {age}</p>
+              <p><strong>Gender:</strong> {gender}</p>
+            </section>
+              <hr />
+              <br />
+            <section className='profile-live-details'>
+              <h3>Last Log Entry: {lastLogMonth}/{lastLogDay}/{lastLogYear}</h3>
+              <p><strong>Meal:</strong> {lastLoggedMeal}</p>
+              <p><strong>Exercise:</strong> {lastLoggedExercise}</p>
+              <p><strong>Reps Per Set:</strong> {lastExerciseRepsPerSet}</p>
+              <p><strong>Sets:</strong> {lastExerciseSetsCompleted}</p>
+              <p><strong>Duration:</strong> {lastExerciseDurationMinutes} minutes</p>
+              <p><strong>Weight Used:</strong> {lastWeightUsed}</p>
+            </section>
+          </div>
+          <section className='button-container'>
             <button>
               <Link to='/editprofile'>Edit My Info</Link>
             </button>
-          </section>
-            <hr />
-            <br />
-          <section className='profile-live-details'>
-            <h3>Last Log Entry: {lastLogMonth}/{lastLogDay}/{lastLogYear}</h3>
-            <p>{lastLoggedMeal}</p>
-            <p>{lastLoggedExercise}</p>
-            <p>Reps Per Set: {lastExerciseRepsPerSet}</p>
-            <p>Sets: {lastExerciseSetsCompleted}</p>
-            <p>Duration: {lastExerciseDurationMinutes} minutes</p>
-            <p>Weight Used: {lastWeightUsed}</p>
             <button>
               <Link className={"link-styles"} to='/logs'>Create a New Log</Link>
             </button>
-          </section>
-      
-          <section>
             <button>
-              <Link className={"link-styles"} to='/add-meal'>Share a New Recipe with the Community</Link>
+              <Link className={"link-styles"} to='/add-meal'>Add New Recipe</Link>
             </button>
+            
           </section>
   
         </> : null }
