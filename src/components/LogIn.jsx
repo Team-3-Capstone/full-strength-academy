@@ -35,7 +35,7 @@ const LogIn = ({ setToken }) => {
         navigate('/profile'); // Navigate to the logs page
       }
     } catch (err) {
-      console.log(err);
+    
     }
   };
 
