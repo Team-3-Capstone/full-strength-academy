@@ -165,41 +165,44 @@ const LogsComponent = () => {
 
   return (
     <main className="main-logs">
-      <section className="foodandexercises">
-        <h1>Meal Search:</h1>
-        <ul>
-          {/* Add New Meal Button stays at the top */}
-          <li>
-            Missing Your Meal?
-            <button onClick={() => navigate('/add-meal')}>Add A New Meal</button>
-          </li>
-
-          {/* "N/A" Meal always stays first under the button */}
-          {mealsWithNA.length > 0 && (
-            <li key="na-meal">
-              N/A
-              <button
-                onClick={() => setNewLog({ ...newLog, meal: 'N/A', mealId: 'N/A' })}
-              >
-                Add
-              </button>
+      <h1>Create A New Log Entry</h1>
+      <div id="add-new-log-container">
+        <section className="log-search-box">
+          <h2>What Did You Eat Today?</h2>
+          <ul>
+            {/* Add New Meal Button stays at the top */}
+            <li>
+              Missing Your Meal?
+              <button onClick={() => navigate('/add-meal')}>Add A New Meal</button>
             </li>
-          )}
 
-          {/* Alphabetize the rest of the meals */}
-          {sortedMeals.map((individualMeal) => (
-            <li key={individualMeal.id}>
-              {individualMeal.name}
-              <button
-                onClick={() => setNewLog({ ...newLog, meal: individualMeal.name, mealId: individualMeal.id })}
-              >
-                Add
-              </button>
-            </li>
-          ))}
-        </ul>
+            {/* "N/A" Meal always stays first under the button */}
+            {mealsWithNA.length > 0 && (
+              <li key="na-meal">
+                N/A
+                <button
+                  onClick={() => setNewLog({ ...newLog, meal: 'N/A', mealId: 'N/A' })}
+                >
+                  Add
+                </button>
+              </li>
+            )}
 
-        <h1>Exercise Search:</h1>
+            {/* Alphabetize the rest of the meals */}
+            {sortedMeals.map((individualMeal) => (
+              <li key={individualMeal.id}>
+                {individualMeal.name}
+                <button
+                  onClick={() => setNewLog({ ...newLog, meal: individualMeal.name, mealId: individualMeal.id })}
+                >
+                  Add
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="log-search-box">
+        <h2>What Did You Train Today?</h2>
         <ul>
           {/* Alphabetize and display the exercises */}
           {sortedExercises.map((individualExercise) => (
@@ -213,10 +216,60 @@ const LogsComponent = () => {
             </li>
           ))}
         </ul>
-      </section>
+        </section>
+        <section className="log-search-box">
+          <h2>Give Me The Details</h2>
+            <div id="log-form-inputs">
+              <p><strong>What Did You Eat Today?</strong></p>
+              <input
+                placeholder="What Did You Eat Today?"
+                type="text"
+                value={newLog.meal}
+                onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
+              />
+              <p><strong>What Did You Train Today?</strong></p>
+              <input
+                placeholder="What Did You Train Today?"
+                type="text"
+                value={newLog.exercise}
+                onChange={(e) => setNewLog({ ...newLog, exercise: e.target.value })}
+              />
+              <p><strong>How Many Sets Did You Do?</strong></p>
+              <input
+                placeholder="How Many Sets Did You Do?"
+                type="number"
+                value={newLog.setsCompleted}
+                onChange={(e) => setNewLog({ ...newLog, setsCompleted: e.target.value })}
+              />
+              <p><strong>How Many Reps In Each Set?</strong></p>
+              <input
+                placeholder="How Many Reps In Each Set?"
+                type="number"
+                value={newLog.repsPerSet}
+                onChange={(e) => setNewLog({ ...newLog, repsPerSet: e.target.value })}
+              />
+              <p><strong>How Much Weight (in pounds)?</strong></p>
+              <input
+                placeholder="How Much Weight?"
+                type="number"
+                value={newLog.weightUsed}
+                onChange={(e) => setNewLog({ ...newLog, weightUsed: e.target.value })}
+              />
+              <p><strong>How Long (in minutes)?</strong></p>
+              <input
+                placeholder="How Long (In Minutes)?"
+                type="number"
+                value={newLog.duration}
+                onChange={(e) => setNewLog({ ...newLog, duration: e.target.value })}
+              />
+            </div>
+          <button onClick={postLogs}>Add Log</button>
+          {inputError && <p>{inputError}</p>}
+        </section>
+      </div>
 
-      <section className="logsandaddnewlogs">
-        <h2>Log History:</h2>
+      <section className="log-history">
+        <h2>Your Journey: A Comprehensive History</h2>
         <ul>
           {logs.map((log) => (
             <li key={log.id}>
@@ -230,71 +283,6 @@ const LogsComponent = () => {
             </li>
           ))}
         </ul>
-        <section className="add-new-logs">
-          <h2>Add New Log</h2>
-          <div>
-            <label>
-              Meal:
-              <input
-                type="text"
-                value={newLog.meal}
-                onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Exercise:
-              <input
-                type="text"
-                value={newLog.exercise}
-                onChange={(e) => setNewLog({ ...newLog, exercise: e.target.value })}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Sets Completed:
-              <input
-                type="number"
-                value={newLog.setsCompleted}
-                onChange={(e) => setNewLog({ ...newLog, setsCompleted: e.target.value })}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Reps per Set:
-              <input
-                type="number"
-                value={newLog.repsPerSet}
-                onChange={(e) => setNewLog({ ...newLog, repsPerSet: e.target.value })}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Weight Used (lbs):
-              <input
-                type="number"
-                value={newLog.weightUsed}
-                onChange={(e) => setNewLog({ ...newLog, weightUsed: e.target.value })}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Duration (minutes):
-              <input
-                type="number"
-                value={newLog.duration}
-                onChange={(e) => setNewLog({ ...newLog, duration: e.target.value })}
-              />
-            </label>
-          </div>
-          <button onClick={postLogs}>Add Log</button>
-          {inputError && <p>{inputError}</p>}
-        </section>
       </section>
     </main>
   );

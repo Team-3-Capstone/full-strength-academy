@@ -1,24 +1,27 @@
 .main-logs {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-padding-top: 50px;
-padding-right:20px;
-padding-left: 20px;
+  height: 80vh;
+  text-align: center;
+  padding: 0 50px;
 }
 
-.main-logs > .search-section {
-  width: 50%;
+.main-logs h1 {
+  padding-bottom: 10px;
+  color:#cc3700;
+  text-shadow: -1px -1px 0 white, 1px -1px white, -1px 1px 0 white, 1px 1px 0 white;
 }
 
-.main-logs > .logs-section {
-  width: 50%;
-}
-
-.main-logs h1, .main-logs h2 {
-  font-size: 1.3rem;
+.main-logs h2 {
+  font-size: 1.7rem;
   margin-bottom: 10px;
-  color:white;
+  color: white;
   padding: 20px;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  border-bottom-width: 4px;
+  text-shadow: -1px -1px 0 black, 1px -1px black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
 .main-logs ul {
@@ -26,9 +29,8 @@ padding-left: 20px;
   padding: 0;
   max-height: 300px; /* Limit the height to show only the first three items */
   overflow-y: auto;  /* Enable vertical scroll */
-  border: 1px solid #ddd;
   padding: 8px;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
 
 .main-logs li {
@@ -58,29 +60,19 @@ padding-left: 20px;
   background-color: #cc3700; /* Slightly darker hover effect */
 }
 
-.main-logs div {
-  margin-bottom: 20px;
-  padding: 5px;
-}
-
-.main-logs label {
-  display: block;
-  font-size: 1rem;
-  color:white;
-  margin-bottom: 5px;
-}
-
 .main-logs input {
-  width: 60%;
+  width: 70%;
   font-size: 0.9rem;
   border: 1px solid #ccc;
   border-radius:5px;
   margin:5px;
-
+  padding: 1px;
+  margin: 10px;
+  align-items: left;
 }
 
-.main-logs input[type="number"] {
-  width: 30%;
+.main-logs p {
+  color: black;
 }
 
 .main-logs button {
@@ -91,6 +83,9 @@ padding-left: 20px;
   font-size: 0.9rem;
   border-radius: 5px;
   cursor: pointer;
+  border-color: black;
+  border-width: 2px;
+  border-style: outset;
 }
 
 .main-logs button:hover {
@@ -102,27 +97,27 @@ padding-left: 20px;
   padding: 10px;
 }
 
-/* Adjusting sections for the left and right placement */
-.search-section {
-  margin-right: 20px; /* Add space between the search and logs sections */
+#add-new-log-container {
+  display: flex;
+  justify-content: space-between;
 }
 
-.logs-section {
-  background-color: white;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
+.log-search-box {
+  width: 30vw;
+  box-shadow:2px 2px 5px  5px rgb(30,0,0,30);
+  line-height: 1vh;
+  padding: 1vw;
+  background-color: #cc3700;
+  border-radius: 3%;
 }
 
-.add-new-logs{
-width: 400px;
-line-height: 20px;
-padding: 10px;
-background-color:#cc3700;
-margin: 20px;
-box-shadow:2px 2px 5px  5px rgb(30,0,0,30);
-
-}
-.logsandaddnewlogs{
-  padding:20px;
+.log-history {
+  margin: 3vh;
+  box-shadow:2px 2px 5px  5px rgb(30,0,0,30);
+  line-height: 1vh;
+  padding: 1vw;
+  background-color: #cc3700;
+  border-radius: 3%;
+  width: 90vw;
+  align-items: center;
 }
