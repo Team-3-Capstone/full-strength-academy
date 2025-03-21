@@ -46,7 +46,9 @@ app.post('/api/auth/login', async(req, res) => {
 app.get('/api/auth/login', async(req, res) => {
   try {
     const user = await verifyToken(req.headers.authorization);
-    res.send({message: `verified`});
+    if(user) {
+      res.send({message: `verified`});
+    }
   } catch(err) {
     res.send({message: err.message});
   }

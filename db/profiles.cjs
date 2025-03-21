@@ -10,7 +10,7 @@ const createProfile = async(usernameChoice, password, userFullName, userHeight, 
       VALUES ('${usernameChoice}', '${encryptedPwd}', '${userFullName}', ${userHeight}, ${userWeight}, ${userAge}, '${userGender}');
       `);
   } catch(err) {
-    console.log(`CREATEPROFILE ERROR MESSAGE: ${err}`);
+    return err.message;
   }
 }
 
@@ -26,13 +26,13 @@ const authentication = async(username, password) => {
         const token = await jwt.sign({username: authenticatedUser.username}, process.env.JWT_SECRET);
         return token;
       } else {
-        res.send({message: `Incorrect password. Please try again.`});
+        return `Incorrect password. Please try again.`;
       }
     } else {
-      res.send({message: `Incorrect password. Please try again.`});
+      return `Incorrect password. Please try again.`;
     }
   } catch(err) {
-    res.send({message: err.message});
+    return err.message;
   }
 }
 
@@ -49,10 +49,10 @@ const verifyToken = async(token) => {
           weight: verifiedUser.weight_pounds, age: verifiedUser.age, gender: verifiedUser.gender
       }
     } else {
-      res.send({message: `Token verification issue. Please try again.`});
+      return `Token verification issue. Please try again.`;
     }
   } catch(err) {
-    res.send({message: err.message});
+    return err.message;
   }
 }
 
@@ -65,7 +65,7 @@ const editProfile = async(editingUsername, fullName, height, weight, ageUpdate, 
         WHERE username='${editingUsername}';
     `);
   } catch(err) {
-    res.send({message: err.message});
+    return err.message;
   }
 }
 
