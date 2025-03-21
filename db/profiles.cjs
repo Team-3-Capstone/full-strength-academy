@@ -32,7 +32,7 @@ const authentication = async(username, password) => {
       return `Incorrect password. Please try again.`;
     }
   } catch(err) {
-    return err.message;
+    return `Incorrect password. Please try again.`;
   }
 }
 
