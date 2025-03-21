@@ -4,7 +4,7 @@ import './css-components/login.css'
 const LogIn = ({ setToken }) => {
   const [inputUsername, setInputUsername] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const [ badLogin, setBadLogin ] = useState(null);
+  const [badLogin, setBadLogin] = useState(null);
 
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const LogIn = ({ setToken }) => {
       });
 
       const userLogin = await response.json();
+      console.log(userLogin);
 
       if (userLogin.message === 'Authentication error.') {
         setBadLogin('Invalid login attempt');
@@ -35,23 +36,27 @@ const LogIn = ({ setToken }) => {
         navigate('/profile'); // Navigate to the logs page
       }
     } catch (err) {
-    
+
     }
   };
 
   return (
     <>
-    <main className="main-login">
-      
-      <form onSubmit={loggingIn}>
-      <h2>Log into my account!</h2>
-        <input placeholder='username' onChange={(event) => { setInputUsername(event.target.value) }} />
-        <input placeholder='password' type='password' onChange={(event) => { setInputPassword(event.target.value) }} />
-        <button>Login</button>
-        {
-          badLogin ? <p>Invalid Login Attempt, Try Again</p> : null
-        }
-      </form>
+      <main className="main-login">
+        <form onSubmit={loggingIn}>
+          <h2>Log into my account!</h2>
+            <input 
+              placeholder='username' 
+              onChange={(event) => { setInputUsername(event.target.value) }} 
+            />
+            <input 
+              placeholder='password' 
+              type='password' 
+              onChange={(event) => { setInputPassword(event.target.value) }} 
+            />
+            <button>Login</button>
+            {badLogin ? <p>{badLogin}</p> : null}
+        </form>
       </main>
     </>
   );
