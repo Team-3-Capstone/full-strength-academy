@@ -113,84 +113,85 @@ const Exercises = () => {
 
   return (
     <>
-    { getToken ?
+    { getToken ? 
     <>
-       <center> <h1>All Exercises</h1></center>
+      <center><h1>All Exercises</h1></center>
 
-    <main className='main-exercise'>
-  
-      <section>
-        <h2>Filters</h2>
-        <hr />
+      <main className='main-exercise'>
         <section>
-          <h2>Muscle Group</h2>
-          {muscleGroups.map((muscle, index) => (
-            <button
-              key={index}
-              style={getButtonStyle(selectedMuscleGroups.includes(muscle))}
-              onClick={() => handleFilterClick('muscle', muscle)}
-            >
-              {muscle.charAt(0).toUpperCase() + muscle.slice(1)} 
-            </button>
-          ))}
-        </section>
+          <h2>Filters</h2>
+          <hr />
+          <section>
+            <h2>Muscle Group</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+              {muscleGroups.map((muscle, index) => (
+                <button
+                  key={index}
+                  style={getButtonStyle(selectedMuscleGroups.includes(muscle))}
+                  onClick={() => handleFilterClick('muscle', muscle)}
+                >
+                  {muscle.charAt(0).toUpperCase() + muscle.slice(1)} 
+                </button>
+              ))}
+            </div>
+          </section>
 
-        <section>
-          <h2>Difficulty</h2>
-          {difficultyLevels.map((difficulty, index) => (
-            <button
-              key={index}
-              style={getButtonStyle(selectedDifficulties.includes(difficulty))}
-              onClick={() => handleFilterClick('difficulty', difficulty)}
-            >
-              {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-            </button>
-          ))}
-        </section>
-
-        <section>
-          <h2>Type</h2>
-          {exerciseTypes.map((type, index) => (
-            <button
-              key={index}
-              style={getButtonStyle(selectedTypes.includes(type))}
-              onClick={() => handleFilterClick('type', type)}
-            >
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </button>
-          ))}
-        </section>
-
-        <button onClick={() => {
-          setSelectedMuscleGroups([]);
-          setSelectedDifficulties([]);
-          setSelectedTypes([]);
-        }}>Clear Filters</button>
-      </section>
-
-      <section>
-        {sortedExercises.length > 0 ? (
-          <ul>
-            {sortedExercises.map((exercise) => (
-              <article key={exercise.id}>
-                <h3>{exercise.name}</h3>
-                <hr />
-                <p><strong>Difficulty:</strong> {exercise.difficulty}</p>
-                <p><strong>Muscle Group:</strong> {exercise.muscle_groups.join(', ')}</p>
-                <p><strong>Type:</strong> {exercise.type}</p>
-              </article>
+          <section>
+            <h2>Difficulty</h2>
+            {difficultyLevels.map((difficulty, index) => (
+              <button
+                key={index}
+                style={getButtonStyle(selectedDifficulties.includes(difficulty))}
+                onClick={() => handleFilterClick('difficulty', difficulty)}
+              >
+                {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+              </button>
             ))}
-          </ul>
-        ) : (
-          <p>No exercises found with these filters.</p>
-        )}
-      </section>
-    </main>
+          </section>
+
+          <section>
+            <h2>Type</h2>
+            {exerciseTypes.map((type, index) => (
+              <button
+                key={index}
+                style={getButtonStyle(selectedTypes.includes(type))}
+                onClick={() => handleFilterClick('type', type)}
+              >
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </button>
+            ))}
+          </section>
+
+          <button onClick={() => {
+            setSelectedMuscleGroups([]);
+            setSelectedDifficulties([]);
+            setSelectedTypes([]);
+          }}>Clear Filters</button>
+        </section>
+
+        <section>
+          {sortedExercises.length > 0 ? (
+            <ul>
+              {sortedExercises.map((exercise) => (
+                <article key={exercise.id}>
+                  <h3>{exercise.name}</h3>
+                  <hr />
+                  <p><strong>Difficulty:</strong> {exercise.difficulty}</p>
+                  <p><strong>Muscle Group:</strong> {exercise.muscle_groups.join(', ')}</p>
+                  <p><strong>Type:</strong> {exercise.type}</p>
+                </article>
+              ))}
+            </ul>
+          ) : (
+            <p>No exercises found with these filters.</p>
+          )}
+        </section>
+      </main>
     </> 
     :
     <h2>Please <Link to='/login'>login</Link> to view this page</h2>
-      }
-      </>
+    }
+    </>
   );
 };
 
