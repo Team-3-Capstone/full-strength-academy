@@ -35,7 +35,7 @@ app.post('/api/auth/login', async(req, res) => {
     try {
       res.send({ username: `${username}`, token: `${token}` });
     } catch(err) {
-      res.send({message: err.message});
+      res.send({message: `Authentication error.`});
     }
   } else {
     res.send({message: `Authentication error.`});
@@ -70,7 +70,6 @@ app.get('/api/auth/me', async(req, res) => {
     res.send({message: err.message});
   }
 });
-/// THIS IS THE 100% WORKING CODE: DO NOT DELETE:
 
 //EDIT USER DETAILS. REQUIRES ACCESS TOKEN TO EDIT INFORMATION.
 app.put('/api/auth/me', async(req, res) => {
