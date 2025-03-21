@@ -31,7 +31,7 @@ app.post('/api/auth/register', async(req, res) => {
 app.post('/api/auth/login', async(req, res) => {
   const { username, password } = req.body;
   const token = await authentication(username, password);
-  if(token) {
+  if(token !== `Incorrect password. Please try again.`) {
     try {
       res.send({ username: `${username}`, token: `${token}` });
     } catch(err) {
@@ -70,7 +70,6 @@ app.get('/api/auth/me', async(req, res) => {
     res.send({message: err.message});
   }
 });
-/// THIS IS THE 100% WORKING CODE: DO NOT DELETE:
 
 //EDIT USER DETAILS. REQUIRES ACCESS TOKEN TO EDIT INFORMATION.
 app.put('/api/auth/me', async(req, res) => {
