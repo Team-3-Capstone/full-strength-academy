@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css-components/logs.css';
+import jsPDF from 'jspdf';
 
 const LogsComponent = () => {
   const [mealsArray, setMealsArray] = useState([]);
@@ -163,6 +164,42 @@ const LogsComponent = () => {
   // Alphabetize the exercises
   const sortedExercises = exercisesArray.sort((a, b) => a.name.localeCompare(b.name));
 
+  const handlePrintLogs = () => {
+    const doc = new jsPDF();
+
+    if (logs.length === 0) {
+      alert('No logs available to print.');
+      return;
+    }
+
+    let yPos = 10;
+    logs.forEach((log, index) => {
+      if (yPos > 250) {
+        doc.addPage();
+        yPos = 10;
+      }
+
+      doc.text(`Log ${index + 1}:`, 10, yPos);
+      yPos += 10;
+      doc.text(`Date: ${decipherDate(log)}`, 10, yPos);
+      yPos += 5;
+      doc.text(`Meal: ${mealsArray.find(meal => meal.id === log.meal_id)?.name || "Meal not found"}`, 10, yPos);
+      yPos += 5;
+      doc.text(`Exercise: ${exercisesArray.find(exercise => exercise.id === log.exercise_id)?.name || "Exercise not found"}`, 10, yPos);
+      yPos += 5;
+      doc.text(`Sets: ${log.sets_completed}`, 10, yPos);
+      yPos += 5;
+      doc.text(`Reps: ${log.reps_per_set}`, 10, yPos);
+      yPos += 5;
+      doc.text(`Weight: ${log.weight_used}lbs`, 10, yPos);
+      yPos += 5;
+      doc.text(`Duration: ${log.duration_minutes} minutes`, 10, yPos);
+      yPos += 10;
+    });
+
+    doc.save('logs.pdf');
+  };
+
   return (
     <main className="main-logs">
       <h1>Create A New Log Entry</h1>
@@ -202,75 +239,79 @@ const LogsComponent = () => {
           </ul>
         </section>
         <section className="log-search-box">
-        <h2>What Did You Train Today?</h2>
-        <ul>
-          {/* Alphabetize and display the exercises */}
-          {sortedExercises.map((individualExercise) => (
-            <li key={individualExercise.id}>
-              {individualExercise.name}
-              <button
-                onClick={() => setNewLog({ ...newLog, exercise: individualExercise.name, exerciseId: individualExercise.id })}
-              >
-                Add
-              </button>
-            </li>
-          ))}
-        </ul>
+          <h2>What Did You Train Today?</h2>
+          <ul>
+            {/* Alphabetize and display the exercises */}
+            {sortedExercises.map((individualExercise) => (
+              <li key={individualExercise.id}>
+                {individualExercise.name}
+                <button
+                  onClick={() => setNewLog({ ...newLog, exercise: individualExercise.name, exerciseId: individualExercise.id })}
+                >
+                  Add
+                </button>
+              </li>
+            ))}
+          </ul>
         </section>
         <section className="log-search-box">
           <h2>Give Me The Details</h2>
-            <div id="log-form-inputs">
-              <p><strong>What Did You Eat Today?</strong></p>
-              <input
-                placeholder="Choose an option on the left"
-                type="text"
-                value={newLog.meal}
-                onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
-              />
-              <p><strong>What Did You Train Today?</strong></p>
-              <input
-                placeholder="Choose an option on the left"
-                type="text"
-                value={newLog.exercise}
-                onChange={(e) => setNewLog({ ...newLog, exercise: e.target.value })}
-              />
-              <p><strong>How Many Sets Did You Do?</strong></p>
-              <input
-                placeholder="If none, insert '0'"
-                type="number"
-                value={newLog.setsCompleted}
-                onChange={(e) => setNewLog({ ...newLog, setsCompleted: e.target.value })}
-              />
-              <p><strong>How Many Reps In Each Set?</strong></p>
-              <input
-                placeholder="If none, insert '0'"
-                type="number"
-                value={newLog.repsPerSet}
-                onChange={(e) => setNewLog({ ...newLog, repsPerSet: e.target.value })}
-              />
-              <p><strong>How Much Weight (in pounds)?</strong></p>
-              <input
-                placeholder="If none, insert '0'"
-                type="number"
-                value={newLog.weightUsed}
-                onChange={(e) => setNewLog({ ...newLog, weightUsed: e.target.value })}
-              />
-              <p><strong>How Long (in minutes)?</strong></p>
-              <input
-                placeholder="If none, insert '0'"
-                type="number"
-                value={newLog.duration}
-                onChange={(e) => setNewLog({ ...newLog, duration: e.target.value })}
-              />
-            </div>
+          <div id="log-form-inputs">
+            <p><strong>What Did You Eat Today?</strong></p>
+            <input
+              placeholder="Choose an option on the left"
+              type="text"
+              value={newLog.meal}
+              onChange={(e) => setNewLog({ ...newLog, meal: e.target.value })}
+            />
+            <p><strong>What Did You Train Today?</strong></p>
+            <input
+              placeholder="Choose an option on the left"
+              type="text"
+              value={newLog.exercise}
+              onChange={(e) => setNewLog({ ...newLog, exercise: e.target.value })}
+            />
+            <p><strong>How Many Sets Did You Do?</strong></p>
+            <input
+              placeholder="If none, insert '0'"
+              type="number"
+              value={newLog.setsCompleted}
+              onChange={(e) => setNewLog({ ...newLog, setsCompleted: e.target.value })}
+            />
+            <p><strong>How Many Reps In Each Set?</strong></p>
+            <input
+              placeholder="If none, insert '0'"
+              type="number"
+              value={newLog.repsPerSet}
+              onChange={(e) => setNewLog({ ...newLog, repsPerSet: e.target.value })}
+            />
+            <p><strong>How Much Weight (in pounds)?</strong></p>
+            <input
+              placeholder="If none, insert '0'"
+              type="number"
+              value={newLog.weightUsed}
+              onChange={(e) => setNewLog({ ...newLog, weightUsed: e.target.value })}
+            />
+            <p><strong>How Long (in minutes)?</strong></p>
+            <input
+              placeholder="If none, insert '0'"
+              type="number"
+              value={newLog.duration}
+              onChange={(e) => setNewLog({ ...newLog, duration: e.target.value })}
+            />
+          </div>
           <button onClick={postLogs}>Add Log</button>
           {inputError && <p>{inputError}</p>}
         </section>
       </div>
 
       <section className="log-history">
-        <h2>Your Journey: A Comprehensive History</h2>
-        <ul>
+      <h2>
+    Your Journey: A Comprehensive History 
+    <button onClick={handlePrintLogs} style={{ marginLeft: '10px' }}>
+      Print My Logs
+    </button>
+  </h2>        <ul>
           {logs.slice().reverse().map((log) => (
             <li key={log.id}>
               <strong>Date:</strong> {decipherDate(log)}
@@ -284,13 +325,9 @@ const LogsComponent = () => {
           ))}
         </ul>
       </section>
+
     </main>
   );
 };
 
 export default LogsComponent;
-
-
-// {console.log(log.exercise_id)}
-//               {console.log(log)}
-//               {console.log(exercisesArray)}
